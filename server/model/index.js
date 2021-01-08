@@ -1,7 +1,10 @@
 'use strict'
+const dotenv = require('dotenv');
+dotenv.config();
 
+const { required } = require('@hapi/joi');
 const mongoose = require('mongoose');
-const mongodb = 'mongodb://localhost:27017/myMongo';
+const mongodb = process.env.mongodb;
 
 mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
 
