@@ -16,6 +16,8 @@ async function postNews(ctx) {
     const { author, description, publishedAt, source, title, url, urlToImage } = ctx.request.body;
     const messages = new newsModel({ author, description, publishedAt, source, title, url, urlToImage });
     await messages.save();
+    // aggiunto per
+    ctx.body = messages;
     ctx.status = 201;
   } catch (error) {
     ctx.status = 500;
