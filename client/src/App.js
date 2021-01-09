@@ -10,8 +10,22 @@ import {
   // getRandomImage,
 } from "./ApiServices";
 
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 import { SwipeableList, SwipeableListItem, ActionAnimations } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
+
+import Login from './componentsRegister/loginForm';
+import Register from './componentsRegister/registerForm' ;
+
+import TestRedirect from './test-redirect';
 
 function App() {
   const [newsServer, setNewsServer] = useState([]);
@@ -84,7 +98,7 @@ function App() {
   //console.log(newsServer)
 
   //console the weather api call
-  console.log(weather, 'weather');
+  //console.log(weather, 'weather');
 
   //console the daily news filtered by keyword
   // console.log(newsDaily);
@@ -119,30 +133,59 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Solo Project di staminchia di&nbsp;stocazzo</h1>
+
+      <Router>
+        <ul>
+          <li>
+            <Link to="/">Landing</Link>
+          </li>
+          <li>
+            <Link to="/news">Page news</Link>
+          </li>
+          <li>
+            <Link to="/registration">Registration</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route path="/news">
+            
+            <TestRedirect />
+
+            <SwipeableList>
+              {newsServer.map(e => {
+                return <SwipeableListItem
+                  swipeLeft={{
+                    content: <div>figa la troia</div>,
+                    action: () => deleteSelectedNews(e._id)
+                  }}
+                  swipeRight={{
+                    content: <div>FEEEEEGA</div>,
+                    action: () => {
+                      save(e.author, e.description, e.publishedAt, e.source, e.title, e.url, e.urlToImage)
+                    }
+                  }}
+                  //onSwipeProgress={progress => console.info(`Swipe progress: ${progress}%`)}
+                  key={e._id}
+                >
+                  <p>{e.author}</p>
+                </SwipeableListItem>
+              })}
+            </SwipeableList>
+          </Route>
+
+          <Route path="/registration">
+            <div className="form__registration-login">
+              <Login />
+              <Register />
+            </div>
+          </Route>
+        </Switch>
+      </Router>
+
+      <h1>Pagina di apertura</h1>
       <p>Evvia la ft</p>
 
-
-      <SwipeableList>
-        {newsServer.map(e => {
-          return <SwipeableListItem
-            swipeLeft={{
-              content: <div>figa la troia</div>,
-              action: () => deleteSelectedNews(e._id)
-            }}
-            swipeRight={{
-              content: <div>FEEEEEGA</div>,
-              action: () => {
-                save(e.author, e.description, e.publishedAt, e.source, e.title, e.url, e.urlToImage)
-              }
-            }}
-            //onSwipeProgress={progress => console.info(`Swipe progress: ${progress}%`)}
-            key={e._id}
-          >
-            <p>{e.author}</p>
-          </SwipeableListItem>
-        })}
-      </SwipeableList>
 
 
       {/* <div>{selectedCountry}</div>

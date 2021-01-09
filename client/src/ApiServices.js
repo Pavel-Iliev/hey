@@ -1,5 +1,6 @@
 import axios from 'axios';
 const BASE_URL_SERVER = 'http://localhost:3200/news/';
+const FORM_URL_SERVER = 'http://localhost:3200/api/user';
 
 // api from server
 export function getNewsServer() {
@@ -16,6 +17,17 @@ export function deleteNews(id) {
   return axios.delete(BASE_URL_SERVER + id)
 }
 
+
+// api for register/login
+export async function login(email, password) {
+  const user = { email, password };
+  return axios.post(`${FORM_URL_SERVER}/login`, user);
+}
+
+export async function register(name , email , password) {
+  const user = { name, email, password };
+  return axios.post(`${FORM_URL_SERVER}/register`, user);
+}
 
 
 //api from web
