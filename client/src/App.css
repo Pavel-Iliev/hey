@@ -448,6 +448,10 @@ button {
   color: #FFCE34;
 }
 
+.pos-rel {
+  position: relative;
+}
+
 .button-blue.btn,
 .button-blue button {
   color: #fff;
@@ -486,8 +490,46 @@ button {
 
 
 .title-menu {
-  margin: 30px 30px 0;
+  margin: 35px 30px 0;
 }
 .title-menu {
-  padding-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.menu-btn {
+  border-radius: 10px;
+  z-index: 14;
+}
+
+.menu-btn::before,
+.menu-btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  background-color: #000;
+  border-radius: 4px;
+  transition: opacity .4s ease;
+  opacity: 0;
+}
+
+.menu-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.menu-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.menu-btn img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 18px;
+  width : auto;
+  opacity: 1;
+  transition: opacity .6s ease;
 }

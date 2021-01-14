@@ -64,7 +64,9 @@ function AuthenticationPage(props) {
                       </Link>
                     </li>
                     <li>
-                      <Link className="button-white" to="/signin"><button onClick={()=> {flagAuthPage(); signPage() }}>Sign in</button></Link>
+                      <Link 
+                      onClick={()=> {flagAuthPage(); signPage() }}
+                      className="button-white" to="/signin">Sign in</Link>
                     </li>
                   </ul>
                   : ''

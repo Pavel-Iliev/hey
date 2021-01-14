@@ -10,7 +10,7 @@ import {
   getNewsServer,
   postNewsPersonal,
   deleteNews,
-  // getNews,
+  getNews,
 } from "./ApiServices";
 
 

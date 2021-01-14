@@ -4,6 +4,9 @@ import Background from '../../components/backgroud/Background';
 import HeaderPage from '../../components/headerPage/HeaderPage';
 import { getWeather, getNewsCategory } from '../../ApiServices';
 import RightMenu from '../rightMenu/RightMenu';
+import LeftMenu from '../leftMenu/LeftMenu';
+
+import { BrowserRouter as Router , Switch , Route } from "react-router-dom";
 
 function DailyNews() {
   let titlePage = 'Your Daily News'
@@ -15,7 +18,7 @@ function DailyNews() {
 
   useEffect(() => {
 
-    // convert country name to iso code, used to filter country headtitles
+    // convert countr y name to iso code, used to filter country headtitles
     const countries = require("i18n-iso-countries");
     countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
@@ -52,13 +55,47 @@ function DailyNews() {
 
   return(
     <>
-      <div className="daily-news height-page">
+      <div className="page-news height-page">
         <HeaderPage 
           titlePage={titlePage}
           time={time}
         />
         <Background />
-        <RightMenu />
+
+        <Router>
+
+          <RightMenu />
+          <LeftMenu />
+
+          <Switch>
+            <Route path="/daily">
+              <h1>Daily news</h1>
+            </Route>
+            <Route path="/business">
+              <h1>Business news</h1>
+            </Route>
+            <Route path="/technology">
+              <h1>Technology news</h1>
+            </Route>
+            <Route path="/entertainment">
+              <h1>Entertainment news</h1>
+            </Route>
+            <Route path="/health">
+              <h1>Health news</h1>
+            </Route>
+            <Route path="/general">
+              <h1>General news</h1>
+            </Route>
+            <Route path="/science">
+              <h1>Science news</h1>
+            </Route>
+            <Route path="/sports">
+              <h1>Sports news</h1>
+            </Route>
+          </Switch>
+        </Router>
+        
+        
       </div>
       
     </>
