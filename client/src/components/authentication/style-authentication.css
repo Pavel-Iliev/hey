@@ -1,0 +1,95 @@
+.authentication-page {
+  position: relative;
+}
+
+.authentication-page--wrap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  width: 95%;
+  left: -5%;
+  padding-left: 5%;
+  z-index: 10;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+  overflow: hidden;
+  background-color: rgba(0,0,0,.3);
+}
+
+.authentication-page--wrap-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+  transform: translateY(220px);
+}
+
+.authentication-page--wrap-form {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 5%;
+  z-index: 2;
+  padding: 40px 0;
+}
+
+.authentication-page--wrap-form ul  {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.authentication-page--wrap-form ul::before,
+.authentication-page--wrap-form ul::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 47.5%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 14px;
+  background-color: #3A55D8;
+}
+
+.authentication-page--wrap-form ul::before {
+  margin-top: -16px;
+}
+
+.authentication-page--wrap-form ul::after {
+  margin-top: 16px;
+}
+
+.authentication-page--wrap-form ul li:nth-child(1) {
+  margin-right: 20px;
+  position: relative;
+}
+
+.authentication-page--wrap-form ul li:nth-child(1)::before {
+  content: 'or';
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  right: -27px;
+  color: #3A55D8;
+  font-weight: 700;
+}
+
+.authentication-page--wrap-form ul li:nth-child(2) {
+  margin-left: 20px;
+}
+
+.authentication-page--wrap-form ul li a {
+  margin: 0;
+  padding: 7px 24px;
+}
+
+.authentication-page--wrap-bg {
+  transition: transform .2s ease;
+}

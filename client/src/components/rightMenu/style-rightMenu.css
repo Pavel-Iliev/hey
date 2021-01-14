@@ -1,0 +1,32 @@
+.right-menu {
+  position: fixed;
+  top: 100px;
+  right: -10%;
+  width: 100%;
+  background-color: #fff;
+  bottom: 60px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  padding-right: 10%;
+  overflow: hidden;
+}
+
+.right-menu__title {
+  text-align: right;
+  border-bottom: 2px solid #FFCE34;
+}
+
+.right-menu__title h3 {
+  font-size: 18px;
+}
+
+.right-menu__categories {
+  margin: 15px 30px 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #FFCE34;
+}
+
+.right-menu__your-news {
+  display: flex;
+  margin: 0 30px;
+}

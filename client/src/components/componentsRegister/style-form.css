@@ -1,0 +1,74 @@
+.form {
+  padding: 0 37px;
+}
+.form label {
+  display: none;
+}
+.form input,
+.form button {
+  display: block;
+  width: 100%;
+  height: 38px;
+  border: 0;
+  font-weight: 700;
+}
+.form input {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding-left: 25px;
+  font-size: 14px;
+}
+
+.form .button-blue,
+.form .button-white {
+  display: block;
+  margin-top: 40px;
+}
+
+.back-btn {
+  position: absolute;
+  bottom: 4px;
+  color: #3A55D8;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 10px;
+  text-decoration: underline;
+}
+
+.login-page .authentication-page--wrap-bg {
+  transform: translateY(70px);
+}
+
+.sign-page .authentication-page--wrap-bg {
+  transform: translateY(20px); 
+}
+
+p.error {
+  color: #FF0000;
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 90px;
+  text-transform: uppercase;
+  font-weight: 700;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1.1em;
+}
+
+.wrap-input {
+  position: relative;
+}
+
+.wrap-input input {
+  color: #3A55D8; 
+}
+
+.wrap-input img {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+}

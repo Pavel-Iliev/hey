@@ -1,13 +1,16 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+
+import LoadingPage from './components/loadingPage/LoadingPage';
+import AuthenticationPage from './components/authentication/Authentication';
+import DailyNews from './components/dailyNews/DailyNews'
+
+// all old stuff
 import {
   getNewsServer,
   postNewsPersonal,
   deleteNews,
-  getWeather,
   // getNews,
-  // getNewsCategory,
-  // getRandomImage,
 } from "./ApiServices";
 
 
@@ -22,62 +25,27 @@ import {
 import { SwipeableList, SwipeableListItem, ActionAnimations } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
-import Login from './componentsRegister/loginForm';
-import Register from './componentsRegister/registerForm' ;
-
-import TestRedirect from './test-redirect';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(window.localStorage.getItem('token') ? true : false);
+  const [user, setUser] = useState(null);
+
+
+  // ALL OLD STUFF
   const [newsServer, setNewsServer] = useState([]);
   const [newsDaily, setNewsDaily] = useState([]);
-  const [weather, setWeather] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('gb'); // only for inital state, untill the user set or accept the global notification
 
 
   useEffect(() => {
-    getNewsServer().then((news) => setNewsServer(news));
+    // setTimeout(() => setLoading(false), 3700);
 
-    // convert country name to iso code, used to filter country headtitles
-    const countries = require("i18n-iso-countries");
-    countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+    // ALL OLD STUFF
+    // getNewsServer().then((news) => setNewsServer(news));
+    
+    // getNews().then((news) => console.log(news));
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        //array for weather
-
-        getWeather(latitude, longitude).then((data) => {
-          setWeather(data);
-          const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
-
-          // first the country is UK, once accept the position notification, turn all on the current state
-          // setSelectedCountry(country);
-          // getAndSetNewsCategoriesByCountry(country);
-        });
-      });
-    }
-
-    //getNews().then((news) => setNewsDaily(news.articles));
-
-    // getRandomImage()
-    //   .then(photo => console.log(photo.urls.full));
   }, []);
-
-  //set the new country after select it
-  // function onCountryChange(event) {
-  //   setSelectedCountry(event.target.value);
-  //   getAndSetNewsCategoriesByCountry(event.target.value);
-  // }
-
-  //function to set the categories buy country
-  // function getAndSetNewsCategoriesByCountry(country) {
-  //   const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
-
-  //   Promise.all(categoryPromises).then((categories) =>
-  //     setCategories(categories)
-  //   );
-  // }
 
   //post method
   function addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage) {
@@ -104,10 +72,6 @@ function App() {
   // console.log(newsDaily);
 
 
-  // console.log(categories);
-
-
-
   //article to test post method to server
   //const articleToSave = newsServer[0];
   function save(author, description, publishedAt, source, title, url, urlToImage) {
@@ -130,11 +94,24 @@ function App() {
     deleteOneNews(id);
   }
 
-
   return (
     <div className="App">
 
-      <Router>
+      {
+        // loading === false ? (<AuthenticationPage />) : (<LoadingPage />)
+        
+      }
+
+      {
+        isUserAuthenticated ? <DailyNews /> : <AuthenticationPage 
+        isUserAuthenticated={isUserAuthenticated}
+        setIsUserAuthenticated={setIsUserAuthenticated}
+        user={user}
+        setUser={setUser}/>
+      }
+
+      
+      {/* <Router>
         <ul>
           <li>
             <Link to="/">Landing</Link>
@@ -149,8 +126,6 @@ function App() {
 
         <Switch>
           <Route path="/news">
-            
-            <TestRedirect />
 
             <SwipeableList>
               {newsServer.map(e => {
@@ -184,17 +159,7 @@ function App() {
       </Router>
 
       <h1>Pagina di apertura</h1>
-      <p>Evvia la ft</p>
-
-
-
-      {/* <div>{selectedCountry}</div>
-      <select onChange={onCountryChange}>
-        <option value="gb">UK</option>
-        <option value="it">Italy</option>
-        <option value="us">Us</option>
-        <option value="bg">BG</option>
-      </select> */}
+      <p>Evvia la ft</p> */}
     </div>
   );
 }

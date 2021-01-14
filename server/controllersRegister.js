@@ -29,7 +29,9 @@ async function loginUser(ctx) {
 
   //Create token
 
-  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
+  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+    expiresIn: '24h' 
+  })
   ctx.set('auth-token', token);
   ctx.body = token;
 }
@@ -43,8 +45,8 @@ async function registerUser(ctx) {
     return ctx.body = error.details[0].message;
   }
 
-  const emailExists = await userModel.find({ email });
-  if (!emailExists) {
+  const emailExists = await userModel.findOne({ email });
+  if (emailExists) {
     ctx.status = 400;
     return ctx.body = 'The email already exists!';
   }
@@ -56,8 +58,20 @@ async function registerUser(ctx) {
   const user = new userModel({name, email, password : hashPassword})
 
   try {
-    const userSaved = await userModel.create(user);
-    ctx.body = userSaved;
+    const { _id } = await user.save();
+    const token = jwt.sign({_id}, process.env.TOKEN_SECRET);
+    ctx.body = token;
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = error;
+  }
+}
+
+async function getUser(ctx) {
+  try {
+    const {_id, name, email} = ctx.user;
+    const user = {_id, name, email};
+    ctx.body = user;
   } catch (error) {
     ctx.status = 400;
     ctx.body = error;
@@ -65,4 +79,4 @@ async function registerUser(ctx) {
 }
 
 
-module.exports = { loginUser, registerUser };
+module.exports = { loginUser, registerUser, getUser };

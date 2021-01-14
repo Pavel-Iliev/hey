@@ -29,6 +29,14 @@ export async function register(name , email , password) {
   return axios.post(`${FORM_URL_SERVER}/register`, user);
 }
 
+export async function getUser(token) {
+  return axios.get(`${FORM_URL_SERVER}/user`, {
+    headers: {
+      Authorization: token
+    }
+  } ,token)
+}
+
 
 //api from web
 // export function getNews() {
@@ -41,6 +49,12 @@ export async function register(name , email , password) {
 //     .then(news => news.data);
 // }
 
+// export function getNews() {
+//   return axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=797f19cbeedc498184dd394628e6bbd4');
+// }
+
+
+
 
 // export function getNewsCategory(country, category) {
 //   return axios.get('http://newsapi.org/v2/top-headlines?' +
@@ -51,10 +65,10 @@ export async function register(name , email , password) {
 // }
 
 
-// export function getRandomImage() {
-//   return axios.get('https://api.unsplash.com/photos/random?query=news&client_id=af9jCeSxDOuXCcFhg4zd4pbsst1JPWwNX6SwY7J2-Xo')
-//     .then(news => news.data);
-// }
+export function getRandomImage() {
+  return axios.get('https://api.unsplash.com/photos/random?query=news&client_id=af9jCeSxDOuXCcFhg4zd4pbsst1JPWwNX6SwY7J2-Xo')
+    .then(news => news.data);
+}
 
 
 export function getWeather(lat, long) {

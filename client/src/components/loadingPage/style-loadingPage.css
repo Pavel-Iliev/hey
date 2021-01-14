@@ -1,0 +1,119 @@
+.loading-page {
+  position: relative;
+  background-color: #FFCE34;
+}
+
+.loading-page__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 160px;
+  transform: translate(-50%, -50%);
+  -webkit-animation: animWrap 1s ease 2.7s; /* Safari 4+ */
+  -moz-animation:    animWrap 1s ease 2.7s; /* Fx 5+ */
+  -o-animation:      animWrap 1s ease 2.7s; /* Opera 12+ */
+  animation:         animWrap 1s ease 2.7s; /* IE 10+, Fx 29+ */
+}
+
+.loading-page__logo .loading-page__logo--img {
+  height: 100%;
+  height: 100%;
+  left: 0;
+  right: auto;
+  position: absolute;
+  -webkit-animation: animLogo 3s ease; /* Safari 4+ */
+  -moz-animation:    animLogo 3s ease; /* Fx 5+ */
+  -o-animation:      animLogo 3s ease; /* Opera 12+ */
+  animation:         animLogo 3s ease; /* IE 10+, Fx 29+ */
+  opacity: 0;
+}
+
+.loading-page__logo--text {
+  position: absolute;
+  width: 45%;
+  height: 64px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  left: auto;
+}
+
+.loading-page__logo--text img {
+  position: absolute;
+  width: auto;
+  opacity: 0;
+}
+
+.loading-page__logo--text img:nth-child(1) {
+  top: 0;
+  left: 0;
+  height: 52px;
+  -webkit-animation: animText 2.5s ease .5s; /* Safari 4+ */
+  -moz-animation:    animText 2.5s ease .5s; /* Fx 5+ */
+  -o-animation:      animText 2.5s ease .5s; /* Opera 12+ */
+  animation:         animText 2.5s ease .5s; /* IE 10+, Fx 29+ */
+}
+
+.loading-page__logo--text img:nth-child(2) {
+  top: auto;
+  bottom: 2px;
+  left: 0;
+  height: 16px;
+  -webkit-animation: animText 2s ease 1s; /* Safari 4+ */
+  -moz-animation:    animText 2s ease 1s; /* Fx 5+ */
+  -o-animation:      animText 2s ease 1s; /* Opera 12+ */
+  animation:         animText 2s ease 1s; /* IE 10+, Fx 29+ */
+}
+
+.loading-page__logo--text img:nth-child(3) {
+  right: 2px;
+  top: 2px;
+  -webkit-animation: animMark 1.5s ease 1.5s; /* Safari 4+ */
+  -moz-animation:    animMark 1.5s ease 1.5s; /* Fx 5+ */
+  -o-animation:      animMark 1.5s ease 1.5s; /* Opera 12+ */
+  animation:         animMark 1.5s ease 1.5s; /* IE 10+, Fx 29+ */
+}
+
+
+@keyframes animLogo {
+  0%{
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes animText {
+  0%{
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes animMark {
+  0%{
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes animWrap {
+  0%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
