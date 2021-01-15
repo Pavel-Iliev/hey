@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import { getRandomImage } from './ApiServices';
 
 import LoadingPage from './components/loadingPage/LoadingPage';
 import AuthenticationPage from './components/authentication/Authentication';
@@ -28,6 +29,7 @@ import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [bgImage, setBgImage] = useState('');
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(window.localStorage.getItem('token') ? true : false);
   const [user, setUser] = useState(null);
 
@@ -38,8 +40,9 @@ function App() {
 
 
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 3700);
-
+    setTimeout(() => setLoading(false), 3700);
+    getRandomImage()
+      .then(photo => setBgImage(photo.urls.regular));
     // ALL OLD STUFF
     // getNewsServer().then((news) => setNewsServer(news));
     
@@ -98,16 +101,12 @@ function App() {
     <div className="App">
 
       {
-        // loading === false ? (<AuthenticationPage />) : (<LoadingPage />)
-        
-      }
-
-      {
-        isUserAuthenticated ? <DailyNews /> : <AuthenticationPage 
-        isUserAuthenticated={isUserAuthenticated}
-        setIsUserAuthenticated={setIsUserAuthenticated}
-        user={user}
-        setUser={setUser}/>
+        loading === false ? (isUserAuthenticated ? <DailyNews /> : <AuthenticationPage 
+          bgImage={bgImage}
+          isUserAuthenticated={isUserAuthenticated}
+          setIsUserAuthenticated={setIsUserAuthenticated}
+          user={user}
+          setUser={setUser}/>) : (<LoadingPage />)
       }
 
       

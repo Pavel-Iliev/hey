@@ -89,7 +89,7 @@ function Register(props) {
         </div>
         <p className="error"></p>
         <span className="button-blue">
-            Sign In
+          <button type="submit">Sign In</button>
           </span>
       </form>
       <button className="back-btn" onClick={() => {
