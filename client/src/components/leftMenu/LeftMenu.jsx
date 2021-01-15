@@ -9,15 +9,24 @@ function LeftMenu(props) {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [valueFilter, setValueFilter] = useState('');
-  const [valueTime, setValueTime] = useState('');
+  const [valueClockTime, setValueClockTime] = useState('');
 
   const nameUser = localStorage.getItem('name');
   const userId = localStorage.getItem('_id');  
 
+  // console.log(clockTime);
   useEffect(()=>{
-  }, [])
+    getClockTime(clockTime)
+  }, [clockTime])
 
-  
+  function getClockTime(timeArray) {
+      if (timeArray.length) {
+        console.log(timeArray)
+        setValueClockTime(timeArray[timeArray.length-1].time)
+      }
+  }
+
+  console.log(valueClockTime)
 
   function closeLeftMenu() {
     document.querySelector('.left-menu').classList.remove('open-left-menu');
@@ -37,7 +46,7 @@ function LeftMenu(props) {
 
   function handleChangeTime(event) {
     addTime(event.target.value, userId);
-    setValueTime(event.target.value)
+    setValueClockTime(event.target.value)
   }
 
   function handleSubmit (event) {
@@ -117,7 +126,7 @@ function LeftMenu(props) {
               <input 
               type="time"
               onChange={handleChangeTime}
-              value={valueTime}
+              value={valueClockTime}
               />
             </div>
           </div>
