@@ -41,12 +41,13 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 3700);
-    getRandomImage()
-      .then(photo => setBgImage(photo.urls.regular));
+    // getRandomImage()
+    //   .then(photo => setBgImage(photo.urls.regular));
+
     // ALL OLD STUFF
     // getNewsServer().then((news) => setNewsServer(news));
     
-    // getNews().then((news) => console.log(news));
+    //getNews().then((news) => console.log(news));
 
   }, []);
 
@@ -101,27 +102,28 @@ function App() {
     <div className="App">
 
       {
-        loading === false ? (isUserAuthenticated ? <DailyNews /> : <AuthenticationPage 
+
+        isUserAuthenticated ? 
+          <DailyNews
+            user={user}
+          /> : 
+          <AuthenticationPage 
           bgImage={bgImage}
           isUserAuthenticated={isUserAuthenticated}
           setIsUserAuthenticated={setIsUserAuthenticated}
           user={user}
-          setUser={setUser}/>) : (<LoadingPage />)
+          setUser={setUser}/>
+
+        // loading === false ? (isUserAuthenticated ? <DailyNews /> : <AuthenticationPage 
+        //   bgImage={bgImage}
+        //   isUserAuthenticated={isUserAuthenticated}
+        //   setIsUserAuthenticated={setIsUserAuthenticated}
+        //   user={user}
+        //   setUser={setUser}/>) : (<LoadingPage />)
       }
 
       
       {/* <Router>
-        <ul>
-          <li>
-            <Link to="/">Landing</Link>
-          </li>
-          <li>
-            <Link to="/news">Page news</Link>
-          </li>
-          <li>
-            <Link to="/registration">Registration</Link>
-          </li>
-        </ul>
 
         <Switch>
           <Route path="/news">
@@ -148,17 +150,9 @@ function App() {
             </SwipeableList>
           </Route>
 
-          <Route path="/registration">
-            <div className="form__registration-login">
-              <Login />
-              <Register />
-            </div>
-          </Route>
         </Switch>
       </Router>
-
-      <h1>Pagina di apertura</h1>
-      <p>Evvia la ft</p> */}
+       */}
     </div>
   );
 }

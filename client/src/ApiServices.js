@@ -1,8 +1,13 @@
 import axios from 'axios';
 const BASE_URL_SERVER = 'http://localhost:3200/news/';
 const FORM_URL_SERVER = 'http://localhost:3200/api/user';
+const FILTERS_URL_SERVER = 'http://localhost:3200/filters/';
+const TIME_URL_SERVER = 'http://localhost:3200/time/';
+
+
 
 // api from server
+//news
 export function getNewsServer() {
   return axios.get(BASE_URL_SERVER)
     .then(news => news.data);
@@ -17,6 +22,33 @@ export function deleteNews(id) {
   return axios.delete(BASE_URL_SERVER + id)
 }
 
+//filters
+export function getFiltersServer(idUser) {
+  return axios.get(FILTERS_URL_SERVER, {
+    headers: {
+      Authorization: `bearer ${idUser}`
+    }
+  })
+    .then(news => news.data);
+}
+
+export function postFiltersPersonal( filter, userId ) {
+  return axios.post(FILTERS_URL_SERVER, { filter, userId })
+}
+
+export function deleteFilters(id) {
+  return axios.delete(FILTERS_URL_SERVER + id)
+}
+
+//time
+export function getTime() {
+  return axios.get(TIME_URL_SERVER)
+    .then(news => news.data);
+}
+
+export function postTime( time ) {
+  return axios.post(TIME_URL_SERVER, { time })
+}
 
 // api for register/login
 export async function login(email, password) {

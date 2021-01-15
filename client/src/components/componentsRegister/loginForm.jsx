@@ -30,8 +30,14 @@ function Login(props) {
     if (email && password) {
       login(email, password)
         .then(token => {
-          getUser(token.data).then(user => setUser(user.data))
-          localStorage.setItem('token', token.data)
+          getUser(token.data)
+          .then(user => {
+            setUser(user.data);
+            localStorage.setItem('token', token.data);
+            localStorage.setItem('name', user.data.name);
+            localStorage.setItem('email', user.data.email);
+            localStorage.setItem('_id', user.data._id)
+          })
         })
         .catch(error => {
           document.querySelector('.error').innerHTML = error.response.data

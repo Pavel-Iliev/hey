@@ -215,7 +215,18 @@
   opacity: 0;
 }
 
+.right-menu .menu-btn::before,
+.right-menu .menu-btn::after {
+  background-color: #000;
+}
+
 .open-right-menu .menu-btn::before,
 .open-right-menu .menu-btn::after {
   opacity: 1;
+}
+
+.hide-menu .right-menu__btn,
+.hide-menu.right-menu:before {
+  transform: translateX(0px); 
+  transition: transform .6s ease;
 }

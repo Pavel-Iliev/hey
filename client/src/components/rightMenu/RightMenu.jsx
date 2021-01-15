@@ -4,21 +4,25 @@ import { useState } from 'react';
 
 function RightMenu(props) {
 
+  
   const [menuOpen, setMenuOpen] = useState(false)
+  const {isLefMenuOpen, setIsLeftMenuOpen, isRightMenuOpen, setIsRightMenuOpen} = props;
 
   function closeRightMenu() {
     document.querySelector('.right-menu').classList.remove('open-right-menu');
     setMenuOpen(false);
+    setIsRightMenuOpen(false)
   }
 
   function openRightMenu() {
     document.querySelector('.right-menu').classList.add('open-right-menu');
     setMenuOpen(true);
+    setIsRightMenuOpen(true);
   }
 
   return(
     <>
-      <div className="right-menu">
+      <div className={`right-menu ${isLefMenuOpen ? 'hide-menu' : '' }`}>
         <div className="right-menu__title title-menu">
           <span onClick={menuOpen ? closeRightMenu : openRightMenu}  className="right-menu__btn menu-btn">
             <img src="/images/category-menu.svg" alt="category menu"/>

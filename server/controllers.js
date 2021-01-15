@@ -1,4 +1,8 @@
 const { newsModel } = require('./model/newsModel');
+const { filtersModel } = require('./model/filtersModel');
+const { TimeModel } = require('./model/timeModel');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 async function getNews(ctx) {
   try {
@@ -38,4 +42,75 @@ async function deleteNews(ctx) {
   }
 }
 
-module.exports = { getNews, postNews, deleteNews };
+
+//controllers for filters
+async function getFilters(ctx) {
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+    // const {userId} = ctx.request.body
+    const filters = await filtersModel.find({ userId: _id });
+    ctx.status = 200;
+    ctx.body = filters;
+  } catch (error) {
+    ctx.status = 500;
+    console.error(error);
+  }
+}
+
+async function postFilters(ctx) {
+  console.log(ctx.request.body)
+  try {
+    const { filter, userId } = ctx.request.body;
+    const filters = new filtersModel({ filter, userId });
+    await filters.save();
+    ctx.body = filters;
+    ctx.status = 201;
+  } catch (error) {
+    ctx.status = 500;
+    console.error(error);
+  }
+}
+
+async function deleteFilters(ctx) {
+  try {
+    const id = ctx.params.id;
+    ctx.status = 204;
+    await filtersModel.deleteOne({
+      _id: id
+    });
+  } catch (err) {
+    ctx.status = 500;
+    console.error(error)
+  }
+}
+
+//controllers for time
+
+async function getTime(ctx) {
+  try {
+    const time = await TimeModel.find({});
+    ctx.status = 200;
+    ctx.body = time;
+  } catch (error) {
+    ctx.status = 500;
+    console.error(error);
+  }
+}
+
+async function postTime(ctx) {
+  try {
+    const { time } = ctx.request.body;
+    const times = new TimeModel({ time });
+    await times.save();
+    ctx.body = times;
+    ctx.status = 201;
+  } catch (error) {
+    ctx.status = 500;
+    console.error(error);
+  }
+}
+
+module.exports = { getNews, postNews, deleteNews, getFilters, postFilters, deleteFilters, getTime, postTime };

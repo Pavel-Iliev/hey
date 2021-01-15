@@ -3,19 +3,15 @@ import { useEffect, useState } from 'react';
 import Background from '../../components/backgroud/Background';
 import Login from '../componentsRegister/loginForm';
 import Register from '../componentsRegister/registerForm';
-import { BrowserRouter as Router,Switch,Route,Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom";
 
 function AuthenticationPage(props) {
 
   const {bgImage, isUserAuthenticated , setIsUserAuthenticated , user , setUser} = props;
-
   const [isAuthPage, setIsAuthPage] = useState(true);
-  const history = useHistory();
 
   useEffect(()=> {
-    return () => {setIsAuthPage(true)}
-
-    
+    return () => {setIsAuthPage(true)}    
   }, [])  
 
   function flagAuthPage() {
