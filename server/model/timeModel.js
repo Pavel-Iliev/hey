@@ -5,6 +5,10 @@ const Time = new Schema({
   time: {
     type: String,
     required: true
+  },
+  userId: {
+    type: String,
+    required: true
   }
 });
 

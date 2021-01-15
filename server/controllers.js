@@ -50,7 +50,6 @@ async function getFilters(ctx) {
 
   try {
     const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
-    // const {userId} = ctx.request.body
     const filters = await filtersModel.find({ userId: _id });
     ctx.status = 200;
     ctx.body = filters;
@@ -90,8 +89,11 @@ async function deleteFilters(ctx) {
 //controllers for time
 
 async function getTime(ctx) {
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader.split(' ')[1];
   try {
-    const time = await TimeModel.find({});
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+    const time = await TimeModel.find({ userId: _id });
     ctx.status = 200;
     ctx.body = time;
   } catch (error) {
@@ -102,8 +104,8 @@ async function getTime(ctx) {
 
 async function postTime(ctx) {
   try {
-    const { time } = ctx.request.body;
-    const times = new TimeModel({ time });
+    const { time, userId } = ctx.request.body;
+    const times = new TimeModel({ time, userId });
     await times.save();
     ctx.body = times;
     ctx.status = 201;

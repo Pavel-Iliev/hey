@@ -1,11 +1,11 @@
 import './style-leftMenu.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function LeftMenu(props) {
 
   const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation
-    , temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, addTime } = props;
+    , temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, addTime, clockTime } = props;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [valueFilter, setValueFilter] = useState('');
@@ -13,6 +13,11 @@ function LeftMenu(props) {
 
   const nameUser = localStorage.getItem('name');
   const userId = localStorage.getItem('_id');  
+
+  useEffect(()=>{
+  }, [])
+
+  
 
   function closeLeftMenu() {
     document.querySelector('.left-menu').classList.remove('open-left-menu');
@@ -31,8 +36,8 @@ function LeftMenu(props) {
   }
 
   function handleChangeTime(event) {
-    addTime(event.target.value);
-    // setValueTime(event.target.value)
+    addTime(event.target.value, userId);
+    setValueTime(event.target.value)
   }
 
   function handleSubmit (event) {
@@ -42,8 +47,6 @@ function LeftMenu(props) {
       setValueFilter('');
     } 
   }
-
-  console.log(filters)
 
   return(
     <>

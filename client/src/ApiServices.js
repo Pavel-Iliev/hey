@@ -5,7 +5,6 @@ const FILTERS_URL_SERVER = 'http://localhost:3200/filters/';
 const TIME_URL_SERVER = 'http://localhost:3200/time/';
 
 
-
 // api from server
 //news
 export function getNewsServer() {
@@ -41,13 +40,17 @@ export function deleteFilters(id) {
 }
 
 //time
-export function getTime() {
-  return axios.get(TIME_URL_SERVER)
+export function getTime(idUser) {
+  return axios.get(TIME_URL_SERVER, {
+    headers: {
+      Authorization: `bearer ${idUser}`
+    }
+  })
     .then(news => news.data);
 }
 
-export function postTime( time ) {
-  return axios.post(TIME_URL_SERVER, { time })
+export function postTime( time, userId ) {
+  return axios.post(TIME_URL_SERVER, { time, userId })
 }
 
 // api for register/login

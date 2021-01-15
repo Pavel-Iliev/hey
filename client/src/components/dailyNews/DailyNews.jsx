@@ -27,7 +27,7 @@ function DailyNews(props) {
 
   const [filters, setFilters] = useState([]);
 
-  const [clockTime, setClockTime] = useState('');
+  const [clockTime, setClockTime] = useState([]);
 
   const [categories, setCategories] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('gb'); // only for inital state, untill the user set or accept the global notification
@@ -60,7 +60,7 @@ function DailyNews(props) {
 
       getFiltersServer(localStorage.getItem('token')).then((filters) => setFilters(filters));
 
-      getTime().then(timeClock => setClockTime(timeClock));
+      getTime(localStorage.getItem('token')).then(timeClock => setClockTime(timeClock));
     }  
   }, [])
 
@@ -77,8 +77,8 @@ function DailyNews(props) {
     });
   }
 
-  function addTime( timeToAdd ) {
-    postTime( timeToAdd )
+  function addTime( timeToAdd , idUser) {
+    postTime( timeToAdd , idUser)
       .then((time) => setClockTime(time.data));
   }
 
@@ -96,8 +96,6 @@ function DailyNews(props) {
   //     setCategories(categories)
   //   );
   // }
-
-  // console.log(clockTime);
 
   return(
     <>
@@ -121,6 +119,7 @@ function DailyNews(props) {
             filters={filters}
             addFilters={addFilters}
             deleteOnefilter={deleteOnefilter}
+            clockTime={clockTime}
             addTime={addTime}
             countryGeolocation={countryGeolocation}
             cityGeolocation={cityGeolocation}
