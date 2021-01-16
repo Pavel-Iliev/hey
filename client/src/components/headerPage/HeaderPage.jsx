@@ -1,9 +1,16 @@
 import './style-headerPage.css';
 import moment from 'moment';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function HeaderPage(props) {
-  const { titlePage, time } = props;
-    
+  const { titlePage, time, setTitlePage } = props;
+  const location = useLocation();
+  useEffect(()=>{
+    if(location && location.state !== undefined) {
+      setTitlePage(location.state.category)
+    }
+  },[location])
   return(
     <>
     <div className="header-page">

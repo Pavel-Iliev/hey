@@ -10,6 +10,7 @@
   padding-right: 10%;
   transform: translateX(90%);
   transition: transform .6s ease;
+  z-index: 2;
 }
 
 .right-menu.open-right-menu {

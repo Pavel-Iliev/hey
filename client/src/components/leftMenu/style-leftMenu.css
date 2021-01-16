@@ -10,6 +10,7 @@
   padding-left: 10%;
   transform: translateX(-90%);
   transition: transform .6s ease;
+  z-index: 2;
 }
 
 .left-menu.open-left-menu {
@@ -64,7 +65,7 @@
 }
 
 
-.right-menu::after {
+.left-menu::after {
   content: '';
   display: block;
   position: absolute;

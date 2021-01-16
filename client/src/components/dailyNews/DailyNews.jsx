@@ -5,13 +5,23 @@ import HeaderPage from '../../components/headerPage/HeaderPage';
 import { getWeather, getNewsCategory } from '../../ApiServices';
 import RightMenu from '../rightMenu/RightMenu';
 import LeftMenu from '../leftMenu/LeftMenu';
-import { getFiltersServer, postFiltersPersonal, deleteFilters, getTime, postTime} from '../../ApiServices';
+import NewsPage from '../newsPage/NewsPage';
+import { 
+  getFiltersServer, 
+  postFiltersPersonal, 
+  deleteFilters, 
+  getTime, 
+  postTime,
+  getNewsServer,
+  postNewsPersonal,
+  deleteNews,
+} from '../../ApiServices';
 
 import { BrowserRouter as Router , Switch , Route } from "react-router-dom";
 
 function DailyNews(props) {
   const { user, setIsUserAuthenticated, setUser } = props;
-  let titlePage = 'Your Daily News'
+  const [titlePage, setTitlePage] = useState('Your Daily News');
 
   const [isLefMenuOpen, setIsLeftMenuOpen] = useState(false);
   const [isRightMenuOpen, setIsRightMenuOpen] = useState(false);
@@ -31,6 +41,9 @@ function DailyNews(props) {
 
   const [categories, setCategories] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('gb'); // only for inital state, untill the user set or accept the global notification
+
+
+  const [newsServer, setNewsServer] = useState([]);
 
   useEffect(() => {
   
@@ -53,13 +66,14 @@ function DailyNews(props) {
 
           const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
           // first the country is UK, once accept the position notification, turn all on the current state
-          setSelectedCountry(country);
-          getAndSetNewsCategoriesByCountry(country);
+          // setSelectedCountry(country);
+          // getAndSetNewsCategoriesByCountry(country);
         });
       });
 
       getFiltersServer().then((filters) => setFilters(filters));
       getTime().then(timeClock => setClockTime(timeClock));
+      getNewsServer().then((news) => setNewsServer(news));
     }  
   }, [])
 
@@ -81,33 +95,48 @@ function DailyNews(props) {
       .then((time) => setClockTime(time.data));
   }
 
-  //set the new country after select it
-  function onCountryChange(event) {
-    setSelectedCountry(event.target.value);
-    getAndSetNewsCategoriesByCountry(event.target.value);
+  // get Categories LOGIC from api
+  // //set the new country after select it
+  // function onCountryChange(event) {
+  //   setSelectedCountry(event.target.value);
+  //   getAndSetNewsCategoriesByCountry(event.target.value);
+  // }
+
+  // //function to set the categories by country
+  // function getAndSetNewsCategoriesByCountry(country) {
+  //   const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
+
+  //   Promise.all(categoryPromises).then((categories) =>
+  //     setCategories(categories)
+  //   );
+  // }
+
+  //post method
+  function addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage) {
+    postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage)
+      .then((event) => setNewsServer([...newsServer, event.data]));
   }
 
-  //function to set the categories by country
-  function getAndSetNewsCategoriesByCountry(country) {
-    const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
-
-    Promise.all(categoryPromises).then((categories) =>
-      setCategories(categories)
-    );
+  //deleteMethod
+  function deleteOneNews(id) {
+    deleteNews(id).then(() => {
+      setNewsServer((news) =>
+        news.filter((newsDelete) => newsDelete._id !== id)
+      );
+    });
   }
-
-  console.log(categories)
 
   return(
     <>
-      <div className="page-news height-page">
-        <HeaderPage 
-          titlePage={titlePage}
-          time={time}
-        />
-        <Background />
+      <div className="home height-page">
 
         <Router>
+          <HeaderPage 
+            titlePage={titlePage}
+            setTitlePage={setTitlePage}
+            time={time}
+          />
+          <Background />
 
           <RightMenu 
             isLefMenuOpen={isLefMenuOpen}
@@ -141,32 +170,44 @@ function DailyNews(props) {
           <Switch>
             <Route path="/daily">
               <h1>Daily news</h1>
+              <NewsPage 
+                newsForPage={newsServer}
+                addNewsToPersonal={addNewsToPersonal}
+                deleteOneNews={deleteOneNews}
+              />
             </Route>
             <Route path="/business">
               <h1>Business news</h1>
+              <NewsPage />
             </Route>
             <Route path="/technology">
               <h1>Technology news</h1>
+              <NewsPage />
             </Route>
             <Route path="/entertainment">
               <h1>Entertainment news</h1>
+              <NewsPage />
             </Route>
             <Route path="/health">
               <h1>Health news</h1>
+              <NewsPage />
             </Route>
             <Route path="/general">
               <h1>General news</h1>
+              <NewsPage />
             </Route>
             <Route path="/science">
               <h1>Science news</h1>
+              <NewsPage />
             </Route>
             <Route path="/sports">
               <h1>Sports news</h1>
+              <NewsPage />
             </Route>
           </Switch>
         </Router>
         
-        <select 
+        {/* <select 
           onChange={onCountryChange} 
           name="countryChange" 
           id="countryChange"
@@ -175,7 +216,7 @@ function DailyNews(props) {
           <option value="it">Italy</option>
           <option value="sp">Spain</option>
           <option value="fr">France</option>
-        </select>
+        </select> */}
         
       </div>
       

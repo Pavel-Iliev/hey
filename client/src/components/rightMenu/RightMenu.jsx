@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 function RightMenu(props) {
-
   
   const [menuOpen, setMenuOpen] = useState(false)
-  const {isLefMenuOpen, setIsLeftMenuOpen, isRightMenuOpen, setIsRightMenuOpen} = props;
+  const {isLefMenuOpen, setIsRightMenuOpen} = props;
 
   function closeRightMenu() {
     document.querySelector('.right-menu').classList.remove('open-right-menu');
@@ -27,48 +26,48 @@ function RightMenu(props) {
           <span onClick={menuOpen ? closeRightMenu : openRightMenu}  className="right-menu__btn menu-btn">
             <img src="/images/category-menu.svg" alt="category menu"/>
           </span>
-          <Link onClick={closeRightMenu} className="back-to-daily color-yellow" to="/daily">back to daily news</Link>
+          <Link onClick={closeRightMenu} className="back-to-daily color-yellow" to={{pathname: '/daily',state: { category: 'daily-news' }}}>Back to Daily News</Link>
           <h3>Categories</h3>
         </div>
         <ul className="right-menu__categories pos-rel">
           <li>
-            <Link onClick={closeRightMenu} to="/business">
+            <Link onClick={closeRightMenu} to={{pathname: '/business',state: { category: 'business' }}}>
             <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>business</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/technology">
+            <Link onClick={closeRightMenu} to={{pathname: '/technology',state: { category: 'technology' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>technology</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/entertainment">
+            <Link onClick={closeRightMenu} to={{pathname: '/health',state: { category: 'health' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>entertainment</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/health">
+          <Link onClick={closeRightMenu} to={{pathname: '/health',state: { category: 'health' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>health</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/general">
+          <Link onClick={closeRightMenu} to={{pathname: '/general',state: { category: 'general' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>general</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/science">
+          <Link onClick={closeRightMenu} to={{pathname: '/science',state: { category: 'science' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>science</span>
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to="/sports">
+          <Link onClick={closeRightMenu} to={{pathname: '/sports',state: { category: 'sports' }}}>
               <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               <span>sports</span>
             </Link>
@@ -76,7 +75,7 @@ function RightMenu(props) {
         </ul>
         <div className="right-menu__your-news">
             <div className="right-menu__your-news--image pos-rel">
-              <Link onClick={closeRightMenu} to="/saved-news">
+              <Link onClick={closeRightMenu} to={{pathname: '/saved-news',state: { category: 'saved-news' }}}>
                 <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
               </Link>
             </div>

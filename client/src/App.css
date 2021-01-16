@@ -414,6 +414,10 @@
     height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
+  }
+
+.img-cover .bg-app {
+  position: fixed;
 }
 
 .bg-top {

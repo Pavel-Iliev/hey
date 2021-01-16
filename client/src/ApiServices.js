@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL_SERVER = 'http://localhost:3200/news';
+const BASE_URL_SERVER = 'http://localhost:3200/news/';
 const FORM_URL_SERVER = 'http://localhost:3200/api/user';
 const FILTERS_URL_SERVER = 'http://localhost:3200/filters/';
 const TIME_URL_SERVER = 'http://localhost:3200/time';
