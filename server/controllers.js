@@ -3,6 +3,7 @@ const { filtersModel } = require('./model/filtersModel');
 const { TimeModel } = require('./model/timeModel');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const { compareSync } = require('bcrypt');
 
 async function getNews(ctx) {
   try {
@@ -45,8 +46,10 @@ async function deleteNews(ctx) {
 
 //controllers for filters
 async function getFilters(ctx) {
+
   const authHeader = ctx.request.headers['authorization'];
-  const token = authHeader.split(' ')[1];
+  console.log(authHeader, 'AOUTHEADER');
+  const token = authHeader;  
 
   try {
     const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -60,10 +63,13 @@ async function getFilters(ctx) {
 }
 
 async function postFilters(ctx) {
-  console.log(ctx.request.body)
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader;
   try {
-    const { filter, userId } = ctx.request.body;
-    const filters = new filtersModel({ filter, userId });
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    const { filter } = ctx.request.body;
+    const filters = new filtersModel({ filter, userId: _id });
     await filters.save();
     ctx.body = filters;
     ctx.status = 201;
@@ -90,7 +96,7 @@ async function deleteFilters(ctx) {
 
 async function getTime(ctx) {
   const authHeader = ctx.request.headers['authorization'];
-  const token = authHeader.split(' ')[1];
+  const token = authHeader;
   try {
     const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
     const time = await TimeModel.find({ userId: _id });
@@ -103,9 +109,12 @@ async function getTime(ctx) {
 }
 
 async function postTime(ctx) {
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader;
   try {
-    const { time, userId } = ctx.request.body;
-    const times = new TimeModel({ time, userId });
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+    const { time } = ctx.request.body;
+    const times = new TimeModel({ time, userId: _id });
     await times.save();
     ctx.body = times;
     ctx.status = 201;

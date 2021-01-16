@@ -4,7 +4,7 @@ import { register, getUser } from '../../ApiServices';
 import { useHistory } from 'react-router-dom';
 
 function Register(props) {
-  const {setIsAuthPage, clearClassesSign, isUserAuthenticated , setIsUserAuthenticated , user , setUser} = props;
+  const {setIsAuthPage, clearClassesSign , setIsUserAuthenticated , user , setUser} = props;
 
   const history = useHistory()
 

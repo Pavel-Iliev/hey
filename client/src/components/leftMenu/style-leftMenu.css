@@ -221,6 +221,8 @@
   text-align: right;
   padding-right: 40px;
   font-size: 14px;
+  font-weight: bold;
+  color: #3A55D8;
 }
 
 .left-menu__input button {
@@ -301,6 +303,7 @@
   display: flex;
   justify-content: space-between; 
   margin: 0 30px;
+  height: 34px;
 }
 
 .left-menu__wrap-bottom--text {
@@ -323,10 +326,35 @@
   margin-left: 5px;
 }
 
+.wrap-logout-time {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.wrap-logout-time button {
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 10px;
+  background-color: #3A55D8;
+  z-index: 1;
+}
+
 .wrap-logout-time input {
   border: 1px solid #3A55D8;
   border-radius: 10px;
   background-color: transparent;
-  width: 80px;
+  width: 100px;
   padding-left: 10px;
+  height: 100%;
+  text-align: left;
+  color: #3A55D8;
+  font-size: 14px;
+}
+
+.open-left-menu .left-menu__btn img {
+  opacity: 0;
 }

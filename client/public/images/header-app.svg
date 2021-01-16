@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="362px" height="91px" viewBox="0 0 362 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Artboard</title>
+<svg width="362px" height="95px" viewBox="0 0 362 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>header-app</title>
     <defs>
         <path d="M0.115265726,58.8201181 C0.504287551,58.8201181 54.2319536,56.0576826 160.135024,77.9894461 C230.73707,92.6106218 298.605639,91.2152927 362,73.8034588 L362,0 L0.115265726,0 C0.115265726,26.2233172 -0.144082158,58.8201181 0.115265726,58.8201181 Z" id="path-1"></path>
-        <filter x="-4.4%" y="-15.9%" width="108.8%" height="136.4%" filterUnits="objectBoundingBox" id="filter-2">
+        <filter x="-1.5%" y="-4.0%" width="103.0%" height="112.5%" filterUnits="objectBoundingBox" id="filter-2">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.202414773 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
         </filter>
     </defs>
-    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="header-app." stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Path-11-Copy" fill-rule="nonzero" transform="translate(181.000000, 44.000000) scale(-1, 1) translate(-181.000000, -44.000000) ">
             <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
             <use fill="#FFFFFF" xlink:href="#path-1"></use>

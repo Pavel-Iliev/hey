@@ -452,6 +452,10 @@ button {
   position: relative;
 }
 
+button {
+  cursor: pointer;
+}
+
 .button-blue.btn,
 .button-blue button {
   color: #fff;
@@ -461,6 +465,7 @@ button {
   background-color: #3A55D8;
   border: 2px solid #3A55D8;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .button-white {
@@ -472,6 +477,7 @@ button {
 .button-white.btn,
 .button-white button {
   color: #3A55D8;
+  cursor: pointer;
 }
 
 
@@ -499,6 +505,7 @@ button {
 .menu-btn {
   border-radius: 10px;
   z-index: 14;
+  cursor: pointer;
 }
 
 .menu-btn::before,

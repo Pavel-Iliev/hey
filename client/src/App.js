@@ -40,14 +40,21 @@ function App() {
 
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3700);
+    // setTimeout(() => setLoading(false), 3700);
     // getRandomImage()
     //   .then(photo => setBgImage(photo.urls.regular));
 
     // ALL OLD STUFF
     // getNewsServer().then((news) => setNewsServer(news));
     
-    //getNews().then((news) => console.log(news));
+    // getNews().then((news) => console.log(news));
+      
+    // axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=797f19cbeedc498184dd394628e6bbd4').then(data => data.data)
+
+    // fetch(`http://newsapi.org/v2/everything?q=bitcoin&from=2020-12-16&sortBy=publishedAt&apiKey=d21ca6233a114ed7b4c8df72e41486c5`)
+    // .then(response => response.json())
+    // .then(data => console.log(data));
+
 
   }, []);
 
@@ -97,7 +104,6 @@ function App() {
     //const id = "5feb13c556ae125bfe7d6e41";
     deleteOneNews(id);
   }
-
   return (
     <div className="App">
 
@@ -106,6 +112,8 @@ function App() {
         isUserAuthenticated ? 
           <DailyNews
             user={user}
+            setUser={setUser}
+            setIsUserAuthenticated={setIsUserAuthenticated}
           /> : 
           <AuthenticationPage 
           bgImage={bgImage}

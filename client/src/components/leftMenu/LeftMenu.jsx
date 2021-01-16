@@ -1,32 +1,28 @@
 import './style-leftMenu.css';
 import { useEffect, useState } from 'react';
-
+import { useHistory } from "react-router-dom";
 
 function LeftMenu(props) {
 
-  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation
-    , temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, addTime, clockTime } = props;
+  const history = useHistory();
+
+  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation, temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, addTime, clockTime, setIsUserAuthenticated, setUser } = props;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [valueFilter, setValueFilter] = useState('');
   const [valueClockTime, setValueClockTime] = useState('');
 
   const nameUser = localStorage.getItem('name');
-  const userId = localStorage.getItem('_id');  
 
-  // console.log(clockTime);
   useEffect(()=>{
     getClockTime(clockTime)
   }, [clockTime])
 
   function getClockTime(timeArray) {
       if (timeArray.length) {
-        console.log(timeArray)
         setValueClockTime(timeArray[timeArray.length-1].time)
       }
   }
-
-  console.log(valueClockTime)
 
   function closeLeftMenu() {
     document.querySelector('.left-menu').classList.remove('open-left-menu');
@@ -45,16 +41,28 @@ function LeftMenu(props) {
   }
 
   function handleChangeTime(event) {
-    addTime(event.target.value, userId);
     setValueClockTime(event.target.value)
+  }
+
+  function sendTime() {
+    addTime(valueClockTime);
   }
 
   function handleSubmit (event) {
     event.preventDefault();
     if( valueFilter ) {
-      addFilters(valueFilter, userId);
+      addFilters(valueFilter);
       setValueFilter('');
     } 
+  }
+
+  function logOut() {
+
+    history.push("/");
+
+    localStorage.clear()
+    setIsUserAuthenticated(false);
+    setUser(null);
   }
 
   return(
@@ -118,11 +126,14 @@ function LeftMenu(props) {
           <div className="wrap-logout-time-log">
             <button className="log-out-btn">
               <img src="/images/log-out.svg" alt="log out"/>
-              <span>
+              <span onClick={logOut}>
                 Log Out
               </span>
               </button>
             <div className="wrap-logout-time">
+              <button onClick={sendTime}>
+                <img src="/images/clock.svg" alt="clock time"/>
+              </button>
               <input 
               type="time"
               onChange={handleChangeTime}

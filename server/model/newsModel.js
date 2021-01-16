@@ -4,32 +4,32 @@ const Schema = mongoose.Schema;
 const News = new Schema({
   author: {
     type: String,
-    required: true
+    // required: true
   },
   description: {
     type: String,
-    required: true
+    // required: true
   },
   publishedAt: {
     type: String,
     default: new Date(Date.now()),
-    required: true
+    // required: true
   },
   source: {
     type: String,
-    required: true
+    // required: true
   },
   title: {
     type: String,
-    required: true
+    // required: true
   },
   url: {
     type: String,
-    required: true
+    // required: true
   },
   urlToImage: {
     type: String,
-    required: true
+    // required: true
   }
 });
 

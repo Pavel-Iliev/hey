@@ -10,7 +10,7 @@ import { getFiltersServer, postFiltersPersonal, deleteFilters, getTime, postTime
 import { BrowserRouter as Router , Switch , Route } from "react-router-dom";
 
 function DailyNews(props) {
-  const { user } = props;
+  const { user, setIsUserAuthenticated, setUser } = props;
   let titlePage = 'Your Daily News'
 
   const [isLefMenuOpen, setIsLeftMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ function DailyNews(props) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        //array for weather
+
         getWeather(latitude, longitude).then((data) => {
           setTime(data.data.observations.location[0].observation[0].utcTime);
           setCountryGeolocation(data.data.observations.location[0].observation[0].country);
@@ -53,19 +53,18 @@ function DailyNews(props) {
 
           const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
           // first the country is UK, once accept the position notification, turn all on the current state
-          // setSelectedCountry(country);
-          // getAndSetNewsCategoriesByCountry(country);
+          setSelectedCountry(country);
+          getAndSetNewsCategoriesByCountry(country);
         });
       });
 
-      getFiltersServer(localStorage.getItem('token')).then((filters) => setFilters(filters));
-
-      getTime(localStorage.getItem('token')).then(timeClock => setClockTime(timeClock));
+      getFiltersServer().then((filters) => setFilters(filters));
+      getTime().then(timeClock => setClockTime(timeClock));
     }  
   }, [])
 
-  function addFilters( addFilter, idUser) {
-    postFiltersPersonal( addFilter, idUser )
+  function addFilters( addFilter ) {
+    postFiltersPersonal( addFilter )
       .then((filter) => setFilters([...filters, filter.data]));
   }
 
@@ -77,25 +76,27 @@ function DailyNews(props) {
     });
   }
 
-  function addTime( timeToAdd , idUser) {
-    postTime( timeToAdd , idUser)
+  function addTime( timeToAdd) {
+    postTime( timeToAdd )
       .then((time) => setClockTime(time.data));
   }
 
-  // //set the new country after select it
-  // function onCountryChange(event) {
-  //   setSelectedCountry(event.target.value);
-  //   getAndSetNewsCategoriesByCountry(event.target.value);
-  // }
+  //set the new country after select it
+  function onCountryChange(event) {
+    setSelectedCountry(event.target.value);
+    getAndSetNewsCategoriesByCountry(event.target.value);
+  }
 
-  // //function to set the categories by country
-  // function getAndSetNewsCategoriesByCountry(country) {
-  //   const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
+  //function to set the categories by country
+  function getAndSetNewsCategoriesByCountry(country) {
+    const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
 
-  //   Promise.all(categoryPromises).then((categories) =>
-  //     setCategories(categories)
-  //   );
-  // }
+    Promise.all(categoryPromises).then((categories) =>
+      setCategories(categories)
+    );
+  }
+
+  console.log(categories)
 
   return(
     <>
@@ -116,6 +117,8 @@ function DailyNews(props) {
           />
           <LeftMenu 
             user={user}
+            setUser={setUser}
+            setIsUserAuthenticated={setIsUserAuthenticated}
             filters={filters}
             addFilters={addFilters}
             deleteOnefilter={deleteOnefilter}
@@ -163,6 +166,16 @@ function DailyNews(props) {
           </Switch>
         </Router>
         
+        <select 
+          onChange={onCountryChange} 
+          name="countryChange" 
+          id="countryChange"
+        >
+          <option value="gb">England</option>
+          <option value="it">Italy</option>
+          <option value="sp">Spain</option>
+          <option value="fr">France</option>
+        </select>
         
       </div>
       

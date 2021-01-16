@@ -7,6 +7,7 @@ const { loginUser, registerUser, getUser } = require('./controllersRegister');
 
 const routerRegister = new Router({ prefix: '/api/user'});
 
+
 //router for news
 router.get('/news', getNews);
 router.post('/news', postNews);
