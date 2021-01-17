@@ -16,20 +16,141 @@
 .news-page .swipeable-list .news-card {
   position: sticky;
   top: 20px;
-  height: 70vh;
+  height: auto;
   margin: 0 auto 80px;
   width: calc(100% - 20px);
 }
 
 .news-page .swipeable-list .news-card .swipeable-list-item {
-  transform-origin: 50% 25%;
+  transform-origin: 50% 0%;
   border-radius: 10px;
   height: 100%;
   overflow: visible;
 }
 
 .news-page .swipeable-list .news-card .swipeable-list-item__content {
-  background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  box-shadow: 0 0 10px rgba(0,0,0,.35);
+  position: relative;
+  overflow: hidden;
+  background-color: #DADADA;
+  display: flex;
+  flex-direction:column;
+}
+
+.br-10 {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.swipeable-list-item__content .news-image {
+  position: relative;
+  height: 160px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.4);
+  width: 100%;
+}
+
+.news-wrap-text {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(255,255,255,.45);
+  margin: -30px 15px 0;
+}
+
+.news-wrap-text__title {
+  padding: 12px 15px 15px;
+  background-color: #fff;
+}
+
+.news-wrap-text__title h2 {
+  line-height: 1em;
+  font-size: 18px;
+}
+
+.news-wrap-text__content {
+  padding: 15px 15px 30px;
+}
+
+.news-wrap-text__content p {
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+.news-data {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.news-bottom-wrap {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.news-bottom-wrap__button a {
+  display: block;
+  padding: 5px 30px 5px 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.news-bottom-wrap__button a img {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.action-notification {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 80px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.action-notification__btn {
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0,0,0,.35);
+}
+
+.action-notification__btn span {
+  line-height: 1.2em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.action-notification__saved span {
+  margin-right: 5px;
+}
+
+.action-notification__deleted span {
+  margin-left: 5px;
+}
+
+.action-notification__saved {
+  background-color: #483AE4;
+  color: #fff;
+  transform: translateX(110%); 
+  transition: transform .4s ease;
+}
+
+.action-notification__deleted {
+  background-color: #FFD400;
+  transform: translateX(-110%);
+  transition: transform .4s ease;
+}
+
+.action-notification .show-notification {
+  transform: translateX(0);
 }

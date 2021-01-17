@@ -178,7 +178,11 @@ function DailyNews(props) {
             </Route>
             <Route path="/business">
               <h1>Business news</h1>
-              <NewsPage />
+              <NewsPage 
+                newsForPage={newsServer}
+                addNewsToPersonal={addNewsToPersonal}
+                deleteOneNews={deleteOneNews}
+              />
             </Route>
             <Route path="/technology">
               <h1>Technology news</h1>
@@ -206,6 +210,33 @@ function DailyNews(props) {
             </Route>
           </Switch>
         </Router>
+
+        <div className="swipe-icons">
+          <div className="swipe-icons-left">
+            <div className="swipe-icons__icon icon-left">
+              <img src="/images/swipe-left.svg" alt="swipe left"/>
+            </div>
+            <p>
+              <span>d</span>
+              <span>e</span>
+              <span>l</span>
+              <span>e</span>
+              <span>t</span>
+              <span>e</span>
+            </p>
+          </div>
+          <div className="swipe-icons-right">
+            <div className="swipe-icons__icon icon-right">
+              <img src="/images/swipe-right.svg" alt="swipe right"/>
+            </div>
+            <p>
+              <span>s</span>
+              <span>a</span>
+              <span>v</span>
+              <span>e</span>
+            </p>
+          </div>
+        </div>
         
         {/* <select 
           onChange={onCountryChange} 

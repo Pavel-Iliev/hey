@@ -1,0 +1,103 @@
+.swipe-icons {
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  width: 100%;
+  bottom: 130px;
+  padding: 0 5px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.swipe-icons .swipe-icons__icon {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,.2);
+  border-radius: 50%;
+  position: relative;
+}
+
+.swipe-icons .swipe-icons__icon img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.swipe-icons-right {
+  text-align: right;
+}
+
+.swipe-icons-right .swipe-icons__icon {
+  float: right;
+}
+
+.swipe-icons p {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.swipe-icons p span {
+  display: inline-block;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0,0,0,.2);
+}
+
+
+.swipe-icons-left p span:nth-child(1) {
+  animation: animLeft 1s ease 0s infinite alternate;
+}
+.swipe-icons-left p span:nth-child(2) {
+  animation: animLeft 1s ease .1s infinite alternate;
+}
+.swipe-icons-left p span:nth-child(3) {
+  animation: animLeft 1s ease .2s infinite alternate;
+}
+.swipe-icons-left p span:nth-child(4) {
+  animation: animLeft 1s ease .3s infinite alternate;
+}
+.swipe-icons-left p span:nth-child(5) {
+  animation: animLeft 1s ease .4s infinite alternate;
+}
+.swipe-icons-left p span:nth-child(6) {
+  animation: animLeft 1s ease .5s infinite alternate;
+}
+
+.swipe-icons-right p span:nth-child(1) {
+  animation: animRight 1s ease .3s infinite alternate;
+}
+.swipe-icons-right p span:nth-child(2) {
+  animation: animRight 1s ease .2s infinite alternate;
+}
+.swipe-icons-right p span:nth-child(3) {
+  animation: animRight 1s ease .1s infinite alternate;
+}
+.swipe-icons-right p span:nth-child(4) {
+  animation: animRight 1s ease 0s infinite alternate;
+}
+
+@keyframes animLeft {
+  0%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-2px) scaleX(.8);
+    opacity: .45;
+  }
+}
+
+
+@keyframes animRight {
+  0%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(2px) scaleX(.8);
+    opacity: .45;
+  }
+}
