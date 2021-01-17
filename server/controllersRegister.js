@@ -29,8 +29,8 @@ async function loginUser(ctx) {
 
   //Create token
 
-  const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
-  ctx.set('auth-token', token);
+  const token = await jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+  // ctx.set('auth-token', token);
   ctx.body = token;
 }
 

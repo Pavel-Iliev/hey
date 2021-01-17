@@ -24,7 +24,13 @@ const User = new Schema({
   date: {
     type: String,
     default: Date.now()
-  }  
+  },
+  news: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'News'
+    }
+  ]  
 });
 
 const userModel = mongoose.model('User', User);

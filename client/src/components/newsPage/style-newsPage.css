@@ -50,6 +50,10 @@
   width: 100%;
 }
 
+.swipeable-list-item__content .news-image img {
+  pointer-events: none;
+}
+
 .news-wrap-text {
   position: relative;
   z-index: 2;

@@ -37,12 +37,11 @@ function Register(props) {
           getUser(token.data)
           .then(user => {
             setUser(user.data)
-            localStorage.setItem('name', user.data.name);
-            localStorage.setItem('email', user.data.email);
-            localStorage.setItem('_id', user.data._id)
-            localStorage.setItem('token', token.data)
           })
-          
+          localStorage.setItem('name', user.data.name);
+          localStorage.setItem('email', user.data.email);
+          localStorage.setItem('_id', user.data._id)
+          localStorage.setItem('token', token.data)
         })  
         .catch(error => {
           document.querySelector('.error').innerHTML = error.response.data

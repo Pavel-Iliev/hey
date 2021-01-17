@@ -30,7 +30,11 @@ const News = new Schema({
   urlToImage: {
     type: String,
     // required: true
-  }
+  },
+  // userId: {
+  //   type: String,
+  //   required: true
+  // }
 });
 
 const newsModel = mongoose.model('News', News);

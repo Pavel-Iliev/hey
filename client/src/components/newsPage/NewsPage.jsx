@@ -28,7 +28,7 @@ function NewsPage(props) {
   }
   
   function addNewsAnimation(card) {
-    card.style.transform = `translate(${getRandomInt(-3, 3)}%, ${getRandomInt(0, 6)}%) rotate(${getRandomInt(-4, 4)}deg)`;  
+    card.style.transform = `translate(${getRandomInt(-3, 3)}%, ${getRandomInt(0, 6)}%) rotate(${getRandomInt(-3, 3)}deg)`;  
     card.style.WebkitTransition = 'transform 1s';
     card.style.MozTransition = 'transform 1s';
   }

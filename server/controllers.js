@@ -1,15 +1,20 @@
 const { newsModel } = require('./model/newsModel');
 const { filtersModel } = require('./model/filtersModel');
 const { TimeModel } = require('./model/timeModel');
+const { userModel } = require('./model/userModel');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { compareSync } = require('bcrypt');
 
 async function getNews(ctx) {
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader;  
+
   try {
-    const events = await newsModel.find({});
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+    const { news } = await userModel.findOne({ _id }).populate('news')
     ctx.status = 200;
-    ctx.body = events;
+    ctx.body = news;
   } catch (error) {
     ctx.status = 500;
     console.error(error);
@@ -17,10 +22,19 @@ async function getNews(ctx) {
 }
 
 async function postNews(ctx) {
+  const authHeader = ctx.request.headers['authorization'];
+  const token = authHeader;
+
   try {
+    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
     const { author, description, publishedAt, source, title, url, urlToImage } = ctx.request.body;
     const messages = new newsModel({ author, description, publishedAt, source, title, url, urlToImage });
     await messages.save();
+    
+    const user = await userModel.findOne({ _id });
+
+    user.news.push(messages._id);
+    await user.save();
     // aggiunto per
     ctx.body = messages;
     ctx.status = 201;
@@ -48,7 +62,6 @@ async function deleteNews(ctx) {
 async function getFilters(ctx) {
 
   const authHeader = ctx.request.headers['authorization'];
-  console.log(authHeader, 'AOUTHEADER');
   const token = authHeader;  
 
   try {

@@ -13,6 +13,9 @@ function App() {
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(window.localStorage.getItem('token') ? true : false);
   const [user, setUser] = useState(null);
 
+  console.log(user, 'user')
+  console.log(isUserAuthenticated, 'isUserAuthenticated')
+  console.log(localStorage, 'localStorage')
 
   useEffect(() => {
     // setTimeout(() => setLoading(false), 3700);

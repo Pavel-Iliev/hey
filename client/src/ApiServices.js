@@ -9,13 +9,21 @@ const tokenUser = localStorage.getItem('token');
 // api from server
 //news
 export async function getNewsServer() {
-  return axios.get(BASE_URL_SERVER)
+  return axios.get(BASE_URL_SERVER, {
+    headers: {
+      Authorization: `${tokenUser}`
+    }
+  })
     .then(news => news.data);
 }
 
-export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage) {
-  const post = { author, description, publishedAt, source, title, url, urlToImage };
-  return axios.post(BASE_URL_SERVER, post)
+export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage, id) {
+  const post = { author, description, publishedAt, source, title, url, urlToImage, id };
+  return axios.post(BASE_URL_SERVER, post, {
+    headers: {
+      Authorization: `${tokenUser}`
+    }
+  })
 }
 
 export async function deleteNews(id) {

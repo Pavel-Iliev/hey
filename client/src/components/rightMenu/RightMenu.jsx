@@ -32,43 +32,43 @@ function RightMenu(props) {
         <ul className="right-menu__categories pos-rel">
           <li>
             <Link onClick={closeRightMenu} to={{pathname: '/business',state: { category: 'business' }}}>
-            <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+            <img className="img-cover" src="/images/business.jpg" alt="your news" />
               <span>business</span>
             </Link>
           </li>
           <li>
             <Link onClick={closeRightMenu} to={{pathname: '/technology',state: { category: 'technology' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/technology.jpg" alt="your news" />
               <span>technology</span>
             </Link>
           </li>
           <li>
             <Link onClick={closeRightMenu} to={{pathname: '/health',state: { category: 'health' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/entertainment.jpg" alt="your news" />
               <span>entertainment</span>
             </Link>
           </li>
           <li>
           <Link onClick={closeRightMenu} to={{pathname: '/health',state: { category: 'health' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/health.jpg" alt="your news" />
               <span>health</span>
             </Link>
           </li>
           <li>
           <Link onClick={closeRightMenu} to={{pathname: '/general',state: { category: 'general' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/general.jpg" alt="your news" />
               <span>general</span>
             </Link>
           </li>
           <li>
           <Link onClick={closeRightMenu} to={{pathname: '/science',state: { category: 'science' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/science.jpg" alt="your news" />
               <span>science</span>
             </Link>
           </li>
           <li>
           <Link onClick={closeRightMenu} to={{pathname: '/sports',state: { category: 'sports' }}}>
-              <img className="img-cover" src="/images/your-news.jpg" alt="your news" />
+              <img className="img-cover" src="/images/sports.jpg" alt="your news" />
               <span>sports</span>
             </Link>
           </li>
