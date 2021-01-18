@@ -2,7 +2,7 @@ import './style-dailyNews.css';
 import { useState, useEffect } from 'react';
 import Background from '../../components/backgroud/Background';
 import HeaderPage from '../../components/headerPage/HeaderPage';
-import { getWeather, getNewsCategory } from '../../ApiServices';
+import { getWeather } from '../../ApiServices';
 import RightMenu from '../rightMenu/RightMenu';
 import LeftMenu from '../leftMenu/LeftMenu';
 import NewsPage from '../newsPage/NewsPage';
@@ -10,8 +10,6 @@ import {
   getFiltersServer, 
   postFiltersPersonal, 
   deleteFilters, 
-  getTime, 
-  postTime,
   getNewsServer,
   postNewsPersonal,
   deleteNews,
@@ -37,20 +35,11 @@ function DailyNews(props) {
 
   const [filters, setFilters] = useState([]);
 
-  const [clockTime, setClockTime] = useState([]);
-
-  const [categories, setCategories] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('gb'); // only for inital state, untill the user set or accept the global notification
-
 
   const [newsServer, setNewsServer] = useState([]);
 
   useEffect(() => {
   
-    // convert countr y name to iso code, used to filter country headtitles
-    const countries = require("i18n-iso-countries");
-    countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -64,10 +53,6 @@ function DailyNews(props) {
           setLowTemperatureGeolocation(data.data.observations.location[0].observation[0].lowTemperature);
           setIconLinkGeolocation(data.data.observations.location[0].observation[0].iconLink);
 
-          const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
-          // first the country is UK, once accept the position notification, turn all on the current state
-          // setSelectedCountry(country);
-          // getAndSetNewsCategoriesByCountry(country);
         });
       });
 
@@ -75,7 +60,6 @@ function DailyNews(props) {
 
     const tokenUser = localStorage.getItem('token');
     getFiltersServer(tokenUser).then((filters) => setFilters(filters));
-    getTime(tokenUser).then(timeClock => setClockTime(timeClock));
     getNewsServer(tokenUser).then((news) => setNewsServer(news));
 
   }, [])
@@ -92,18 +76,6 @@ function DailyNews(props) {
       );
     });
   }
-
-  function addTime( timeToAdd, token) {
-    postTime( timeToAdd, token )
-      .then((time) => setClockTime(time.data));
-  }
-
-  // get Categories LOGIC from api
-  // //set the new country after select it
-  // function onCountryChange(event) {
-  //   setSelectedCountry(event.target.value);
-  //   getAndSetNewsCategoriesByCountry(event.target.value);
-  // }
 
   // //function to set the categories by country
   // function getAndSetNewsCategoriesByCountry(country) {
@@ -155,16 +127,12 @@ function DailyNews(props) {
             filters={filters}
             addFilters={addFilters}
             deleteOnefilter={deleteOnefilter}
-            clockTime={clockTime}
-            addTime={addTime}
             countryGeolocation={countryGeolocation}
             cityGeolocation={cityGeolocation}
             temperatureDescGeolocation={temperatureDescGeolocation}
             highTemperatureGeolocation={highTemperatureGeolocation}
             lowTemperatureGeolocation={lowTemperatureGeolocation}
             iconLinkGeolocation={iconLinkGeolocation}
-            categories={categories}
-            selectedCountry={selectedCountry}
             isLefMenuOpen={isLefMenuOpen}
             setIsLeftMenuOpen={setIsLeftMenuOpen}
             isRightMenuOpen={isRightMenuOpen}

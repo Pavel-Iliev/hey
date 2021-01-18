@@ -1,6 +1,5 @@
 const { newsModel } = require('./model/newsModel');
 const { filtersModel } = require('./model/filtersModel');
-const { TimeModel } = require('./model/timeModel');
 const { userModel } = require('./model/userModel');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -106,36 +105,4 @@ async function deleteFilters(ctx) {
   }
 }
 
-//controllers for time
-
-async function getTime(ctx) {
-  const authHeader = ctx.request.headers['authorization'];
-  const token = authHeader;
-  try {
-    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
-    const time = await TimeModel.find({ userId: _id });
-    ctx.status = 200;
-    ctx.body = time;
-  } catch (error) {
-    ctx.status = 500;
-    console.error(error);
-  }
-}
-
-async function postTime(ctx) {
-  const authHeader = ctx.request.headers['authorization'];
-  const token = authHeader;
-  try {
-    const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
-    const { time } = ctx.request.body;
-    const times = new TimeModel({ time, userId: _id });
-    await times.save();
-    ctx.body = times;
-    ctx.status = 201;
-  } catch (error) {
-    ctx.status = 500;
-    console.error(error);
-  }
-}
-
-module.exports = { getNews, postNews, deleteNews, getFilters, postFilters, deleteFilters, getTime, postTime };
+module.exports = { getNews, postNews, deleteNews, getFilters, postFilters, deleteFilters };

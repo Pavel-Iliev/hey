@@ -57,6 +57,13 @@ function NewsPage(props) {
 
   } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback]);
 
+  //second use effect to separate the 2 api calls
+  useEffect(()=> {
+
+  }, []);
+
+
+
 
   // get Categories LOGIC from api
   //set the new country after select itx
@@ -151,7 +158,10 @@ function NewsPage(props) {
                         : false }
                       >
                         <div className="news-image pos-rel br-10">
-                          <img className="img-cover" src={singleNews.urlToImage} alt="news img"/>
+                          <img className="img-cover" src={singleNews.urlToImage} alt=""/>
+                          <div className="no-avaiable-img">
+                            <img src="/images/logo-black.svg" alt="no available img"/>
+                          </div>
                         </div>
                         <div className="news-wrap-text br-10">
                           <div className="news-wrap-text__title br-10">
@@ -203,7 +213,10 @@ function NewsPage(props) {
                         }}
                       >
                         <div className="news-image pos-rel br-10">
-                          <img className="img-cover" src={singleNews.urlToImage} alt="news img"/>
+                          <img className="img-cover" src={singleNews.urlToImage} alt=""/>
+                          <div className="no-avaiable-img">
+                            <img src="/images/logo-black.svg" alt="no available img"/>
+                          </div>
                         </div>
                         <div className="news-wrap-text br-10">
                           <div className="news-wrap-text__title br-10">

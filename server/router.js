@@ -23,8 +23,4 @@ router.get('/filters', getFilters);
 router.post('/filters', postFilters);
 router.delete('/filters/:id', deleteFilters);
 
-//router for time
-router.get('/time', getTime);
-router.post('/time', postTime);
-
 module.exports = { router, routerRegister };

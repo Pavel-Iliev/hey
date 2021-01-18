@@ -2,7 +2,6 @@ import axios from 'axios';
 const BASE_URL_SERVER = 'http://localhost:3200/news/';
 const FORM_URL_SERVER = 'http://localhost:3200/api/user';
 const FILTERS_URL_SERVER = 'http://localhost:3200/filters/';
-const TIME_URL_SERVER = 'http://localhost:3200/time';
 
 // api from server
 //news
@@ -50,24 +49,6 @@ export async function deleteFilters(id) {
   return axios.delete(FILTERS_URL_SERVER + id)
 }
 
-//time
-export async function getTime(tokenUser) {
-  return axios.get(TIME_URL_SERVER, {
-    headers: {
-      Authorization: `${tokenUser}`
-    }
-  })
-    .then(news => news.data);
-}
-
-export async function postTime( time, tokenUser ) {
-  return axios.post(TIME_URL_SERVER, { time }, {
-    headers: {
-      Authorization: `${tokenUser}`
-    }
-  })
-}
-
 // api for register/login
 export async function login(email, password) {
   const user = { email, password };
@@ -90,15 +71,17 @@ export async function getUser(token) {
 
 
 //api from web
-// export async function getNews() {
-//   return axios.get('http://newsapi.org/v2/everything?' +
-//     'q=cornacchia&' +
-//     'language=it&' +
-//     'from=2020-12-26&' +
-//     'sortBy=popularity&' +
-//     'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
-//     .then(news => news.data);
-// }
+export async function getNews(title, country, dateFrom) {
+  return axios.get('http://newsapi.org/v2/everything?' +
+    'qInTitle=' + title + '&' +
+    'language=' + country + '&' +
+    'from=' + dateFrom + '&' +
+    'sortBy=popularity&' +
+    'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
+    .then(news => news.data);
+}
+
+//date 2020-12-26
 
 
 export async function getNewsCategory(country, category) {

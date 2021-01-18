@@ -1,28 +1,18 @@
 import './style-leftMenu.css';
-import { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
+import { useState } from 'react';
 
 function LeftMenu(props) {
 
   const history = useHistory();
 
-  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation, temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, addTime, clockTime, setIsUserAuthenticated, setUser } = props;
+  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation, temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, setIsUserAuthenticated, setUser } = props;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [valueFilter, setValueFilter] = useState('');
-  const [valueClockTime, setValueClockTime] = useState('');
 
   const nameUser = localStorage.getItem('name');
 
-  useEffect(()=>{
-    getClockTime(clockTime)
-  }, [clockTime])
-
-  function getClockTime(timeArray) {
-      if (timeArray.length) {
-        setValueClockTime(timeArray[timeArray.length-1].time)
-      }
-  }
 
   function closeLeftMenu() {
     document.querySelector('.left-menu').classList.remove('open-left-menu');
@@ -38,15 +28,6 @@ function LeftMenu(props) {
 
   function handleChangeFilter(event) {
     setValueFilter(event.target.value);
-  }
-
-  function handleChangeTime(event) {
-    setValueClockTime(event.target.value)
-  }
-
-  function sendTime() {
-    const token = localStorage.getItem('token');
-    addTime(valueClockTime, token);
   }
 
   function handleSubmit (event) {
@@ -132,16 +113,6 @@ function LeftMenu(props) {
                 Log Out
               </span>
               </button>
-            <div className="wrap-logout-time">
-              <button onClick={sendTime}>
-                <img src="/images/clock.svg" alt="clock time"/>
-              </button>
-              <input 
-              type="time"
-              onChange={handleChangeTime}
-              value={valueClockTime}
-              />
-            </div>
           </div>
         </div>
       </div>
