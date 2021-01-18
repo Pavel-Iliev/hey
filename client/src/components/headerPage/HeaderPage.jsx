@@ -28,14 +28,6 @@ function HeaderPage(props) {
         </div>
       </div>
     </div>
-
-    {/* <div>{selectedCountry}</div>
-      <select onChange={onCountryChange}>
-        <option value="gb">UK</option>
-        <option value="it">Italy</option>
-        <option value="us">Us</option>
-        <option value="bg">BG</option>
-      </select> */}
     </>
   ); 
 }

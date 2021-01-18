@@ -15,8 +15,8 @@ export async function getNewsServer(tokenUser) {
     .then(news => news.data);
 }
 
-export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage, id, tokenUser) {
-  const post = { author, description, publishedAt, source, title, url, urlToImage, id };
+export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage, tokenUser) {
+  const post = { author, description, publishedAt, source, title, url, urlToImage};
   return axios.post(BASE_URL_SERVER, post, {
     headers: {
       Authorization: `${tokenUser}`
@@ -96,23 +96,16 @@ export async function getUser(token) {
 //     'language=it&' +
 //     'from=2020-12-26&' +
 //     'sortBy=popularity&' +
-//     'apiKey=797f19cbeedc498184dd394628e6bbd4')
+//     'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
 //     .then(news => news.data);
 // }
 
-  // export async function getNews() {
-  //   return axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=797f19cbeedc498184dd394628e6bbd4').then(data => data.data)
-  // }
-
-// export async function getNews() {
-//   return axios.get(BASE_URL_SERVER).then(e=> console.log(e));
-// }
 
 export async function getNewsCategory(country, category) {
   return axios.get('http://newsapi.org/v2/top-headlines?' +
     'country=' + country + '&' +
     'category=' + category + '&' +
-    'apiKey=797f19cbeedc498184dd394628e6bbd4')
+    'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
     .then(news => news.data);
 }
 

@@ -26,6 +26,7 @@
   border-radius: 10px;
   height: 100%;
   overflow: visible;
+  margin-bottom: 160px;
 }
 
 .news-page .swipeable-list .news-card .swipeable-list-item__content {
@@ -33,9 +34,10 @@
   box-shadow: 0 0 10px rgba(0,0,0,.35);
   position: relative;
   overflow: hidden;
-  background-color: #DADADA;
+  background-color: #eee;
   display: flex;
   flex-direction:column;
+  min-height: 70vh;
 }
 
 .br-10 {

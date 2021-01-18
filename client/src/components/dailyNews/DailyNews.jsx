@@ -71,11 +71,13 @@ function DailyNews(props) {
         });
       });
 
-      const tokenUser = localStorage.getItem('token');
-      getFiltersServer(tokenUser).then((filters) => setFilters(filters));
-      getTime(tokenUser).then(timeClock => setClockTime(timeClock));
-      getNewsServer(tokenUser).then((news) => setNewsServer(news));
     }  
+
+    const tokenUser = localStorage.getItem('token');
+    getFiltersServer(tokenUser).then((filters) => setFilters(filters));
+    getTime(tokenUser).then(timeClock => setClockTime(timeClock));
+    getNewsServer(tokenUser).then((news) => setNewsServer(news));
+
   }, [])
 
   function addFilters( addFilter, token ) {
@@ -107,14 +109,15 @@ function DailyNews(props) {
   // function getAndSetNewsCategoriesByCountry(country) {
   //   const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
 
+  // NEED THIS CALL FOR ALL NEWS FROM SINGLE SEARCH
   //   Promise.all(categoryPromises).then((categories) =>
   //     setCategories(categories)
   //   );
   // }
 
   //post method
-  function addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage) {
-    postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage)
+  function addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage, token) {
+    postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage , token)
       .then((event) => setNewsServer([...newsServer, event.data]));
   }
 
@@ -172,42 +175,56 @@ function DailyNews(props) {
             <Route path="/daily">
               <h1>Daily news</h1>
               <NewsPage 
-                newsForPage={newsServer}
-                addNewsToPersonal={addNewsToPersonal}
-                deleteOneNews={deleteOneNews}
               />
             </Route>
             <Route path="/business">
-              <h1>Business news</h1>
-              <NewsPage 
-                newsForPage={newsServer}
+              <NewsPage
+                categoryForApi='business'
                 addNewsToPersonal={addNewsToPersonal}
-                deleteOneNews={deleteOneNews}
               />
             </Route>
             <Route path="/technology">
-              <h1>Technology news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='technology'
+                addNewsToPersonal={addNewsToPersonal}
+              />
             </Route>
             <Route path="/entertainment">
-              <h1>Entertainment news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='entertainment'
+                addNewsToPersonal={addNewsToPersonal}
+              />
             </Route>
             <Route path="/health">
-              <h1>Health news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='health'
+                addNewsToPersonal={addNewsToPersonal}
+              />
             </Route>
             <Route path="/general">
-              <h1>General news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='general'
+                addNewsToPersonal={addNewsToPersonal}
+              />
             </Route>
             <Route path="/science">
-              <h1>Science news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='science'
+                addNewsToPersonal={addNewsToPersonal}
+              />
             </Route>
             <Route path="/sports">
-              <h1>Sports news</h1>
-              <NewsPage />
+              <NewsPage 
+                categoryForApi='sports'
+                addNewsToPersonal={addNewsToPersonal}
+              />
+            </Route>
+            <Route path="/saved-news">
+              <h1>Saved News</h1>
+              <NewsPage 
+                newsForPage={newsServer}
+                deleteOneNews={deleteOneNews}
+              />
             </Route>
           </Switch>
         </Router>

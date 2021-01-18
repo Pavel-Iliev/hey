@@ -43,7 +43,7 @@ function RightMenu(props) {
             </Link>
           </li>
           <li>
-            <Link onClick={closeRightMenu} to={{pathname: '/health',state: { category: 'health' }}}>
+            <Link onClick={closeRightMenu} to={{pathname: '/entertainment',state: { category: 'entertainment' }}}>
               <img className="img-cover" src="/images/entertainment.jpg" alt="your news" />
               <span>entertainment</span>
             </Link>

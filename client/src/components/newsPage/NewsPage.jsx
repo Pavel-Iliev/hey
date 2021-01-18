@@ -2,18 +2,71 @@ import './style-newsPage.css';
 import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 import { InView } from 'react-intersection-observer';
+import { getWeather, getNewsCategory } from '../../ApiServices';
 import moment from "moment";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Select from 'react-select'
 
 function NewsPage(props) {
-  const { newsForPage, addNewsToPersonal, deleteOneNews } = props;
+  const { newsForPage, addNewsToPersonal, deleteOneNews, categoryForApi } = props;
 
   const [notificationSaved, setNotificationSaved] = useState(false);
   const [notificationDeleted, setNotificationDeleted] = useState(false);
 
+  const [activeCategory, setActiveCategory] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('gb'); // only for inital state, untill the user set or accept the global notification
+
+  const [automaticCountry, setAutomaticCountry] = useState(true);
+
+  const optionsSelect = [
+    { value: 'de', label: 'Germany' },
+    { value: 'it', label: 'Italy' },
+    { value: 'gb', label: 'England' },
+    { value: 'bg', label: 'Bulgaria' },
+    { value: 'us', label: 'Usa' },
+    { value: 'cn', label: 'China' },
+    { value: 'jp', label: 'Japan' }
+  ]
+
+  useEffect(()=> {
+    const countries = require("i18n-iso-countries");
+    countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+
+    if (navigator.geolocation && automaticCountry) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+
+        getWeather(latitude, longitude).then((data) => {
+          const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
+          // first the country is UK, once accept the position notification, turn all on the current state
+          setSelectedCountry(country);
+        });
+      });
+    }  
+
+    getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
+
+  } , [categoryForApi, selectedCountry, automaticCountry]);
+
+
+  // get Categories LOGIC from api
+  //set the new country after select itx
+  function onCountryChange(event) {
+    setAutomaticCountry(false);
+    setSelectedCountry(event.value);
+    getAndSetNewsCategoriesByCountry(event.value, categoryForApi);
+  }
+
+  //function to set the categories by country
+  function getAndSetNewsCategoriesByCountry(country, category) {
+    // getNewsCategory(country, category)
+    //   .then(categoryNews => setActiveCategory(categoryNews.articles))
+  }
+
   //save new to personals news
   function save(author, description, publishedAt, source, title, url, urlToImage) {
-    addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage);
+    const token = localStorage.getItem('token');
+    addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage, token);
   }
 
   //test to delete method
@@ -28,7 +81,7 @@ function NewsPage(props) {
   }
   
   function addNewsAnimation(card) {
-    card.style.transform = `translate(${getRandomInt(-3, 3)}%, ${getRandomInt(0, 6)}%) rotate(${getRandomInt(-3, 3)}deg)`;  
+    card.style.transform = `translate(${getRandomInt(-3, 3)}%, ${getRandomInt(0, 6)}%) rotate(${getRandomInt(-2, 2)}deg)`;  
     card.style.WebkitTransition = 'transform 1s';
     card.style.MozTransition = 'transform 1s';
   }
@@ -84,7 +137,6 @@ function NewsPage(props) {
                             showSaved();
                           }
                         }}
-                        //onSwipeProgress={progress => console.info(`Swipe progress: ${progress}%`)}
                       >
                         <div className="news-image pos-rel br-10">
                           <img className="img-cover" src={singleNews.urlToImage} alt="news img"/>
@@ -116,7 +168,58 @@ function NewsPage(props) {
                     </InView>
           })}
         </SwipeableList>
-        : 'undefined'
+        : 
+        <SwipeableList>
+          {activeCategory.map((singleNews, index) => {
+            return <InView 
+                      className="news-card"
+                      onChange={(inView, entry) => {
+                        if(inView) {
+                          addNewsAnimation(entry.target)
+                          } else {
+                          removeNewsAnimation(entry.target)
+                        }
+                      }}
+                      key={index}
+                    >
+                      <SwipeableListItem
+                        swipeRight={{
+                          action: () => {
+                            save(singleNews.author, singleNews.description, singleNews.publishedAt, singleNews.source.name, singleNews.title, singleNews.url, singleNews.urlToImage);
+                            showSaved();
+                          }
+                        }}
+                      >
+                        <div className="news-image pos-rel br-10">
+                          <img className="img-cover" src={singleNews.urlToImage} alt="news img"/>
+                        </div>
+                        <div className="news-wrap-text br-10">
+                          <div className="news-wrap-text__title br-10">
+                            <h2>{singleNews.title}</h2>
+                          </div>
+                          <div className="news-wrap-text__content">
+                            <p>{singleNews.description}</p>
+                          </div>
+                        </div>
+                        <div className="news-bottom-wrap">
+                          <div className="news-bottom-wrap__info">
+                            <p>
+                              <span className="title-font">{singleNews.source.name},</span><br />
+                              <span className="title-font">{singleNews.author},</span><br />
+                              <span className="color-blue news-data">{moment(singleNews.publishedAt).format('Do, MMMM')}</span>
+                            </p>
+                          </div>
+                          <div className="news-bottom-wrap__button">
+                            <a className="button-blue pos-rel" href={singleNews.url} target="_blank" rel="noreferrer">
+                              Link
+                              <img src="/images/link.svg" alt="link"/>
+                            </a>
+                          </div>
+                        </div>
+                      </SwipeableListItem>
+                    </InView>
+          })}
+        </SwipeableList>
         }
 
         <div className="action-notification">
@@ -130,6 +233,8 @@ function NewsPage(props) {
           </div>
         </div>
 
+        <div>{selectedCountry}</div>
+        <Select onChange={onCountryChange} options={optionsSelect} />
       </div>
     </>
   ); 

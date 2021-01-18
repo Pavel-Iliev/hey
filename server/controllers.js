@@ -27,6 +27,7 @@ async function postNews(ctx) {
 
   try {
     const {_id} = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log(_id, 'idddd')
     const { author, description, publishedAt, source, title, url, urlToImage } = ctx.request.body;
     const messages = new newsModel({ author, description, publishedAt, source, title, url, urlToImage });
     await messages.save();
