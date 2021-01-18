@@ -71,7 +71,7 @@ async function getFilters(ctx) {
     ctx.body = filters;
   } catch (error) {
     ctx.status = 500;
-    console.error(error);
+    console.error('errror filters',error );
   }
 }
 

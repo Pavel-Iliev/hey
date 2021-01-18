@@ -4,11 +4,9 @@ const FORM_URL_SERVER = 'http://localhost:3200/api/user';
 const FILTERS_URL_SERVER = 'http://localhost:3200/filters/';
 const TIME_URL_SERVER = 'http://localhost:3200/time';
 
-const tokenUser = localStorage.getItem('token');
-
 // api from server
 //news
-export async function getNewsServer() {
+export async function getNewsServer(tokenUser) {
   return axios.get(BASE_URL_SERVER, {
     headers: {
       Authorization: `${tokenUser}`
@@ -17,7 +15,7 @@ export async function getNewsServer() {
     .then(news => news.data);
 }
 
-export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage, id) {
+export async function postNewsPersonal(author, description, publishedAt, source, title, url, urlToImage, id, tokenUser) {
   const post = { author, description, publishedAt, source, title, url, urlToImage, id };
   return axios.post(BASE_URL_SERVER, post, {
     headers: {
@@ -31,7 +29,7 @@ export async function deleteNews(id) {
 }
 
 //filters
-export async function getFiltersServer() {
+export async function getFiltersServer(tokenUser) {
   return axios.get(FILTERS_URL_SERVER, {
     headers: {
       Authorization: `${tokenUser}`
@@ -40,7 +38,7 @@ export async function getFiltersServer() {
     .then(news => news.data);
 }
 
-export async function postFiltersPersonal( filter ) {
+export async function postFiltersPersonal( filter, tokenUser ) {
   return axios.post(FILTERS_URL_SERVER, { filter }, {
     headers: {
       Authorization: `${tokenUser}`
@@ -53,7 +51,7 @@ export async function deleteFilters(id) {
 }
 
 //time
-export async function getTime() {
+export async function getTime(tokenUser) {
   return axios.get(TIME_URL_SERVER, {
     headers: {
       Authorization: `${tokenUser}`
@@ -62,7 +60,7 @@ export async function getTime() {
     .then(news => news.data);
 }
 
-export async function postTime( time ) {
+export async function postTime( time, tokenUser ) {
   return axios.post(TIME_URL_SERVER, { time }, {
     headers: {
       Authorization: `${tokenUser}`

@@ -45,13 +45,15 @@ function LeftMenu(props) {
   }
 
   function sendTime() {
-    addTime(valueClockTime);
+    const token = localStorage.getItem('token');
+    addTime(valueClockTime, token);
   }
 
   function handleSubmit (event) {
     event.preventDefault();
     if( valueFilter ) {
-      addFilters(valueFilter);
+      const token = localStorage.getItem('token');
+      addFilters(valueFilter, token);
       setValueFilter('');
     } 
   }

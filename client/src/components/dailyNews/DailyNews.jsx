@@ -71,14 +71,15 @@ function DailyNews(props) {
         });
       });
 
-      getFiltersServer().then((filters) => setFilters(filters));
-      getTime().then(timeClock => setClockTime(timeClock));
-      getNewsServer().then((news) => setNewsServer(news));
+      const tokenUser = localStorage.getItem('token');
+      getFiltersServer(tokenUser).then((filters) => setFilters(filters));
+      getTime(tokenUser).then(timeClock => setClockTime(timeClock));
+      getNewsServer(tokenUser).then((news) => setNewsServer(news));
     }  
   }, [])
 
-  function addFilters( addFilter ) {
-    postFiltersPersonal( addFilter )
+  function addFilters( addFilter, token ) {
+    postFiltersPersonal( addFilter, token )
       .then((filter) => setFilters([...filters, filter.data]));
   }
 
@@ -90,8 +91,8 @@ function DailyNews(props) {
     });
   }
 
-  function addTime( timeToAdd) {
-    postTime( timeToAdd )
+  function addTime( timeToAdd, token) {
+    postTime( timeToAdd, token )
       .then((time) => setClockTime(time.data));
   }
 
