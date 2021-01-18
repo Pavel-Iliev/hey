@@ -423,14 +423,14 @@
 
 .bg-top {
   position: absolute;
-  top: 0;
+  top: -10px;
   left: 0;
   right: 0;
   height: auto;
   z-index: 1;
   pointer-events: none;
   margin: 0;
-    width: 100%;
+  width: 100%;
 }
 
 .btn, 

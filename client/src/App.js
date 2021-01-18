@@ -18,14 +18,6 @@ function App() {
     // getRandomImage()
     //   .then(photo => setBgImage(photo.urls.regular));
 
-      
-    // axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=797f19cbeedc498184dd394628e6bbd4').then(data => data.data)
-
-    // fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=d21ca6233a114ed7b4c8df72e41486c5`)
-    // .then(response => response.json())
-    // .then(data => console.log(data));
-
-
   }, []);
 
   return (

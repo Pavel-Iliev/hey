@@ -160,3 +160,45 @@
 .action-notification .show-notification {
   transform: translateX(0);
 }
+
+.country-select {
+  display: none;
+}
+
+.country-select.country-select__show {
+  display: flex;
+  z-index: 2;
+}
+
+.country-select {
+  position: fixed;
+  top: 90px;
+  right: 10px;
+  left: auto;
+  z-index: 2;
+}
+
+.country-select p {
+  font-size: 12px;
+  line-height: 1em;
+  margin: 0;
+  display: inline-block;
+  transform: translateY(5px);
+  padding-right: 10px;
+}
+
+.country-select p span {
+  font-weight: bold; 
+}
+
+.country-select select {
+  background-color: #fff;
+  border: 1px solid #3752E0;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+.swipe-icons.swipe-icons-category  .swipe-icons-left,
+.swipe-icons.swipe-icons-saved .swipe-icons-right {
+  display: none;
+}

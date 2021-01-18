@@ -220,53 +220,15 @@ function DailyNews(props) {
               />
             </Route>
             <Route path="/saved-news">
-              <h1>Saved News</h1>
               <NewsPage 
+                checkForSavedNews='saved-news'
                 newsForPage={newsServer}
+                addNewsToPersonal={addNewsToPersonal}
                 deleteOneNews={deleteOneNews}
               />
             </Route>
           </Switch>
         </Router>
-
-        <div className="swipe-icons">
-          <div className="swipe-icons-left">
-            <div className="swipe-icons__icon icon-left">
-              <img src="/images/swipe-left.svg" alt="swipe left"/>
-            </div>
-            <p>
-              <span>d</span>
-              <span>e</span>
-              <span>l</span>
-              <span>e</span>
-              <span>t</span>
-              <span>e</span>
-            </p>
-          </div>
-          <div className="swipe-icons-right">
-            <div className="swipe-icons__icon icon-right">
-              <img src="/images/swipe-right.svg" alt="swipe right"/>
-            </div>
-            <p>
-              <span>s</span>
-              <span>a</span>
-              <span>v</span>
-              <span>e</span>
-            </p>
-          </div>
-        </div>
-        
-        {/* <select 
-          onChange={onCountryChange} 
-          name="countryChange" 
-          id="countryChange"
-        >
-          <option value="gb">England</option>
-          <option value="it">Italy</option>
-          <option value="sp">Spain</option>
-          <option value="fr">France</option>
-        </select> */}
-        
       </div>
       
     </>

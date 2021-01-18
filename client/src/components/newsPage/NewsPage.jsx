@@ -4,11 +4,10 @@ import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 import { InView } from 'react-intersection-observer';
 import { getWeather, getNewsCategory } from '../../ApiServices';
 import moment from "moment";
-import { useEffect, useState } from 'react';
-import Select from 'react-select'
+import { useEffect, useState, useCallback } from 'react';
 
 function NewsPage(props) {
-  const { newsForPage, addNewsToPersonal, deleteOneNews, categoryForApi } = props;
+  const { newsForPage, addNewsToPersonal, deleteOneNews, categoryForApi, checkForSavedNews } = props;
 
   const [notificationSaved, setNotificationSaved] = useState(false);
   const [notificationDeleted, setNotificationDeleted] = useState(false);
@@ -18,15 +17,24 @@ function NewsPage(props) {
 
   const [automaticCountry, setAutomaticCountry] = useState(true);
 
-  const optionsSelect = [
-    { value: 'de', label: 'Germany' },
-    { value: 'it', label: 'Italy' },
-    { value: 'gb', label: 'England' },
-    { value: 'bg', label: 'Bulgaria' },
-    { value: 'us', label: 'Usa' },
-    { value: 'cn', label: 'China' },
-    { value: 'jp', label: 'Japan' }
-  ]
+  const memoizedCallback = useCallback(
+    () => {
+      if (categoryForApi) {
+        document.querySelector('.country-select').classList.add('country-select__show')
+        document.querySelector('.swipe-icons').classList.add('swipe-icons-category')
+      } else {
+        document.querySelector('.country-select').classList.remove('country-select__show')
+        document.querySelector('.swipe-icons').classList.remove('swipe-icons-category')
+      }
+
+      if (checkForSavedNews) {
+        document.querySelector('.swipe-icons').classList.add('swipe-icons-saved')
+      } else {
+        document.querySelector('.swipe-icons').classList.remove('swipe-icons-saved')
+      }
+    },
+    [categoryForApi, checkForSavedNews],
+  );
 
   useEffect(()=> {
     const countries = require("i18n-iso-countries");
@@ -45,16 +53,17 @@ function NewsPage(props) {
     }  
 
     getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
+    memoizedCallback()
 
-  } , [categoryForApi, selectedCountry, automaticCountry]);
+  } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback]);
 
 
   // get Categories LOGIC from api
   //set the new country after select itx
   function onCountryChange(event) {
     setAutomaticCountry(false);
-    setSelectedCountry(event.value);
-    getAndSetNewsCategoriesByCountry(event.value, categoryForApi);
+    setSelectedCountry(event.target.value);
+    getAndSetNewsCategoriesByCountry(event.target.value, categoryForApi);
   }
 
   //function to set the categories by country
@@ -131,12 +140,15 @@ function NewsPage(props) {
                             showDeleted()
                           }
                         }}
-                        swipeRight={{
+
+                        swipeRight={categoryForApi ? 
+                          {
                           action: () => {
                             save(singleNews.author, singleNews.description, singleNews.publishedAt, singleNews.source, singleNews.title, singleNews.url, singleNews.urlToImage);
                             showSaved();
                           }
-                        }}
+                        }
+                        : false }
                       >
                         <div className="news-image pos-rel br-10">
                           <img className="img-cover" src={singleNews.urlToImage} alt="news img"/>
@@ -233,8 +245,50 @@ function NewsPage(props) {
           </div>
         </div>
 
-        <div>{selectedCountry}</div>
-        <Select onChange={onCountryChange} options={optionsSelect} />
+        <div className="country-select">
+          <p>Filter the country <span>for your news</span></p>
+          <select 
+            onChange={onCountryChange}
+            name="countryChange" 
+            id="countryChange"
+          >
+            <option value="de">Germany</option>
+            <option value="gb">England</option>
+            <option value="it">Italy</option>
+            <option value="bg">Bulgaria</option>
+            <option value="us">Usa</option>
+            <option value="cn">China</option>
+          </select>
+        </div>
+
+
+        <div className="swipe-icons">
+          <div className="swipe-icons-left">
+            <div className="swipe-icons__icon icon-left">
+              <img src="/images/swipe-left.svg" alt="swipe left"/>
+            </div>
+            <p>
+              <span>d</span>
+              <span>e</span>
+              <span>l</span>
+              <span>e</span>
+              <span>t</span>
+              <span>e</span>
+            </p>
+          </div>
+          <div className="swipe-icons-right">
+            <div className="swipe-icons__icon icon-right">
+              <img src="/images/swipe-right.svg" alt="swipe right"/>
+            </div>
+            <p>
+              <span>s</span>
+              <span>a</span>
+              <span>v</span>
+              <span>e</span>
+            </p>
+          </div>
+        </div>
+
       </div>
     </>
   ); 
