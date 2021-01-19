@@ -5,6 +5,7 @@ import { getRandomImage } from './ApiServices';
 import LoadingPage from './components/loadingPage/LoadingPage';
 import AuthenticationPage from './components/authentication/Authentication';
 import DailyNews from './components/dailyNews/DailyNews'
+import { BrowserRouter as Router } from "react-router-dom";
 
 
 function App() {
@@ -25,7 +26,6 @@ function App() {
     <div className="App">
 
       {
-
         // loading === true ? <LoadingPage /> : 
         // isUserAuthenticated ? 
         //   <DailyNews
@@ -42,11 +42,14 @@ function App() {
 
         // loading === true ? <LoadingPage /> : 
         isUserAuthenticated ?
+        <Router>
           <DailyNews
             user={user}
             setUser={setUser}
             setIsUserAuthenticated={setIsUserAuthenticated}
-          /> :
+            
+          />
+        </Router> :
           <AuthenticationPage 
           bgImage={bgImage}
           isUserAuthenticated={isUserAuthenticated}

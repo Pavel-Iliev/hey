@@ -122,7 +122,6 @@ function DailyNews(props) {
     <>
       <div className="home height-page">
 
-        <Router>
           <HeaderPage 
             titlePage={titlePage}
             setTitlePage={setTitlePage}
@@ -232,7 +231,6 @@ function DailyNews(props) {
               />
             </Route>
           </Switch>
-        </Router>
       </div>
       
     </>

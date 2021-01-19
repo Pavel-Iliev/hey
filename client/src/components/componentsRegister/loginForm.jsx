@@ -38,6 +38,7 @@ function Login(props) {
             localStorage.setItem('name', user.data.name);
             localStorage.setItem('email', user.data.email);
             localStorage.setItem('_id', user.data._id);
+            history.push("/");
           })
         })
         .catch(error => {
