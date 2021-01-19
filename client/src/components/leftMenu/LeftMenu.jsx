@@ -40,9 +40,7 @@ function LeftMenu(props) {
   }
 
   function logOut() {
-
     history.push("/");
-
     localStorage.clear()
     setIsUserAuthenticated(false);
     setUser(null);
@@ -77,7 +75,7 @@ function LeftMenu(props) {
           </div>
         </div>
         <div className="left-menu__text">
-          <p>Add filters <br/>for your <span className="color-blue">daily news</span> <br/>from tomorrow! </p>
+          <p>Add filters <br/>for your <span className="color-blue">daily news</span></p>
         </div>
         <form onSubmit={handleSubmit} className="left-menu__input">
           <button>
@@ -90,21 +88,23 @@ function LeftMenu(props) {
             placeholder="Type the filter..."
           />
         </form>
-        <ul className="left-menu__filters">
-          {
-            filters.length === 0 ? <li className="left-menu__filters--text color-blue">Set filters for tomorrow's news</li> : 
-            filters.map(filter => 
-              <li className="button-blue pos-rel" key={filter._id}>
-                <button onClick={() => deleteOnefilter(filter._id)}>
-                  {filter.filter}
-                </button>
-              </li>
-            )
-          }          
-        </ul>
+        <div className="container-filters">
+          <ul className="left-menu__filters">
+            {
+              filters.length === 0 ? <li className="left-menu__filters--text color-blue">Set filters for your daily news</li> : 
+              filters.map(filter => 
+                <li className="button-blue pos-rel" key={filter._id}>
+                  <button onClick={() => deleteOnefilter(filter._id)}>
+                    {filter.filter}
+                  </button>
+                </li>
+              )
+            }          
+          </ul>
+        </div>
         <div className="left-menu__wrap-bottom">
           <p className="left-menu__wrap-bottom--text">
-          Set the <span className="color-blue">time</span><br/> for your <span className="color-blue">your news</span>
+          Go for <br /> <span className="color-blue">your news</span>
           </p>
           <div className="wrap-logout-time-log">
             <button className="log-out-btn">
@@ -113,6 +113,8 @@ function LeftMenu(props) {
                 Log Out
               </span>
               </button>
+
+                Chek news
           </div>
         </div>
       </div>

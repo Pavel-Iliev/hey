@@ -17,6 +17,18 @@ function NewsPage(props) {
 
   const [automaticCountry, setAutomaticCountry] = useState(true);
 
+
+  const dailyLocalstorage = JSON.parse(localStorage.getItem('daily-news'));
+  const dailyFilteredNews = [];
+
+  console.log(dailyLocalstorage);
+
+  // dailyLocalstorage.map((news) => {
+  //   // return news.slice(0,5).map(singleNews => dailyFilteredNews.push(singleNews))
+  //   // console.log(news.slice(0,5))
+  //   console.log(news)
+  // })
+
   const memoizedCallback = useCallback(
     () => {
       if (categoryForApi) {
@@ -56,13 +68,6 @@ function NewsPage(props) {
     memoizedCallback()
 
   } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback]);
-
-  //second use effect to separate the 2 api calls
-  useEffect(()=> {
-
-  }, []);
-
-
 
 
   // get Categories LOGIC from api

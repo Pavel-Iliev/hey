@@ -71,7 +71,7 @@
 .right-menu__your-news {
   display: flex;
   margin: 0 30px 15px;
-  height: 100px;
+  height: 90px;
   justify-content: space-between;
   align-items: center;
   border-top: 2px solid #FFCE34;
