@@ -20,6 +20,7 @@ import moment from 'moment';
 import { BrowserRouter as Router , Switch , Route } from "react-router-dom";
 
 function DailyNews(props) {
+  
   const { user, setIsUserAuthenticated, setUser } = props;
   const [titlePage, setTitlePage] = useState('Your Daily News');
 
@@ -41,8 +42,11 @@ function DailyNews(props) {
 
   const [dailyNews, setDailyNews] = useState([]);
 
+  const [dateForFilter, setDateForFilter] = useState(moment().format("YYYY-MM-DD"))
+  const [countryForFilter, setCountryForFilter] = useState('en')
+
+
   useEffect(()=> {
-    const date = moment().format("YYYY-MM-DD");
     const countries = require("i18n-iso-countries");
 
     countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -61,14 +65,13 @@ function DailyNews(props) {
           setLowTemperatureGeolocation(data.data.observations.location[0].observation[0].lowTemperature);
           setIconLinkGeolocation(data.data.observations.location[0].observation[0].iconLink);
           
-          const country = countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase()
-
-          // getDailyNews( filters ,country, date);
+          setCountryForFilter(countries.getAlpha2Code(data.data.observations.location[0].country, "en").toLowerCase())
 
         });
       });
     }  
-  },[filters])
+  },[])
+
 
   useEffect(() => {
     const tokenUser = localStorage.getItem('token');
@@ -89,27 +92,17 @@ function DailyNews(props) {
     });
   }
 
-  function getDailyNews( dailyFilters ,actualCountry, dateOfToday) {
-    dailyFilters.map((oneFilter) => {
-      // return console.log(oneFilter.filter, actualCountry, dateOfToday)
-      return getNews(oneFilter.filter, actualCountry, dateOfToday)
+  function checkForNews() {
+    console.log('called')
+    Promise.all(filters.map(oneFilter => {
+      return getNews(oneFilter.filter, countryForFilter, dateForFilter)
         .then(news => {
-          setDailyNews([...dailyNews, news.articles]);
-          localStorage.setItem('daily-news', JSON.stringify(dailyNews));
+          return news.articles.slice(0,5)
         })
-    });
+    }))
+    .then(news => setDailyNews(news.flat()));
   }
 
-
-  // //function to set the categories by country
-  // function getAndSetNewsCategoriesByCountry(country) {
-  //   const categoryPromises = ["business", "entertainment", "general", "health", "science", "sports", "technology",].map((category) => getNewsCategory(country, category));
-
-  // NEED THIS CALL FOR ALL NEWS FROM SINGLE SEARCH
-  //   Promise.all(categoryPromises).then((categories) =>
-  //     setCategories(categories)
-  //   );
-  // }
 
   //post method
   function addNewsToPersonal(author, description, publishedAt, source, title, url, urlToImage, token) {
@@ -161,54 +154,73 @@ function DailyNews(props) {
             setIsLeftMenuOpen={setIsLeftMenuOpen}
             isRightMenuOpen={isRightMenuOpen}
             setIsRightMenuOpen={setIsRightMenuOpen}
+            setDailyNews={setDailyNews}
+            dateForFilter={dateForFilter}
+            countryForFilter={countryForFilter}
+            checkForNews={checkForNews}
           />
 
           <Switch>
-            <Route path="/daily">
-              <h1>Daily news</h1>
+            <Route exact path="/">
               <NewsPage 
+              categoryForApi='daily'
+              addNewsToPersonal={addNewsToPersonal}
+              dailyNews={dailyNews}
+              setDailyNews={setDailyNews}
+              checkForNews={checkForNews}
+              filters={filters}
+              countryForFilter={countryForFilter}
+              dateForFilter={dateForFilter}
+
               />
             </Route>
             <Route path="/business">
               <NewsPage
                 categoryForApi='business'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/technology">
               <NewsPage 
                 categoryForApi='technology'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/entertainment">
               <NewsPage 
                 categoryForApi='entertainment'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/health">
               <NewsPage 
                 categoryForApi='health'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/general">
               <NewsPage 
                 categoryForApi='general'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/science">
               <NewsPage 
                 categoryForApi='science'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/sports">
               <NewsPage 
                 categoryForApi='sports'
                 addNewsToPersonal={addNewsToPersonal}
+                dailyNews={dailyNews}
               />
             </Route>
             <Route path="/saved-news">
@@ -217,6 +229,7 @@ function DailyNews(props) {
                 newsForPage={newsServer}
                 addNewsToPersonal={addNewsToPersonal}
                 deleteOneNews={deleteOneNews}
+                dailyNews={dailyNews}
               />
             </Route>
           </Switch>

@@ -1,12 +1,13 @@
 import './style-leftMenu.css';
 import { useHistory } from "react-router-dom";
 import { useState } from 'react';
+import {getNews} from '../../ApiServices';
 
 function LeftMenu(props) {
 
   const history = useHistory();
 
-  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation, temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, setIsUserAuthenticated, setUser } = props;
+  const { setIsLeftMenuOpen , isRightMenuOpen, countryGeolocation , cityGeolocation, temperatureDescGeolocation , highTemperatureGeolocation , lowTemperatureGeolocation ,iconLinkGeolocation, filters, addFilters, deleteOnefilter, setIsUserAuthenticated, setUser,setDailyNews, dateForFilter, countryForFilter, checkForNews  } = props;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [valueFilter, setValueFilter] = useState('');
@@ -113,8 +114,11 @@ function LeftMenu(props) {
                 Log Out
               </span>
               </button>
-
+              <button 
+                onClick={checkForNews}
+                className="go-for-news button-blue">
                 Chek news
+              </button>
           </div>
         </div>
       </div>

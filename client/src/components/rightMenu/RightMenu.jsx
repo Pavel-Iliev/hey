@@ -26,7 +26,7 @@ function RightMenu(props) {
           <span onClick={menuOpen ? closeRightMenu : openRightMenu}  className="right-menu__btn menu-btn">
             <img src="/images/category-menu.svg" alt="category menu"/>
           </span>
-          <Link onClick={closeRightMenu} className="back-to-daily color-yellow" to={{pathname: '/daily',state: { category: 'daily-news' }}}>Back to Daily News</Link>
+          <Link onClick={closeRightMenu} className="back-to-daily color-yellow" to={{pathname: '/',state: { category: 'daily-news' }}}>Back to Daily News</Link>
           <h3>Categories</h3>
         </div>
         <ul className="right-menu__categories pos-rel">

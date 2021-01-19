@@ -18,6 +18,7 @@ function App() {
     // getRandomImage()
     //   .then(photo => setBgImage(photo.urls.regular));
 
+
   }, []);
 
   return (

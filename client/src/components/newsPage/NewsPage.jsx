@@ -2,12 +2,13 @@ import './style-newsPage.css';
 import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 import { InView } from 'react-intersection-observer';
-import { getWeather, getNewsCategory } from '../../ApiServices';
+import { getWeather, getNewsCategory, login, getNews } from '../../ApiServices';
 import moment from "moment";
 import { useEffect, useState, useCallback } from 'react';
+import {useHistory} from 'react-router-dom';
 
 function NewsPage(props) {
-  const { newsForPage, addNewsToPersonal, deleteOneNews, categoryForApi, checkForSavedNews } = props;
+  const { newsForPage, dailyNews , addNewsToPersonal, deleteOneNews, categoryForApi, checkForSavedNews, checkForNews, filters, countryForFilter, dateForFilter, setDailyNews } = props;
 
   const [notificationSaved, setNotificationSaved] = useState(false);
   const [notificationDeleted, setNotificationDeleted] = useState(false);
@@ -17,17 +18,16 @@ function NewsPage(props) {
 
   const [automaticCountry, setAutomaticCountry] = useState(true);
 
+  const [tempNews, setTempNews] = useState([])
 
-  const dailyLocalstorage = JSON.parse(localStorage.getItem('daily-news'));
-  const dailyFilteredNews = [];
-
-  console.log(dailyLocalstorage);
-
+  const history = useHistory()
   // dailyLocalstorage.map((news) => {
-  //   // return news.slice(0,5).map(singleNews => dailyFilteredNews.push(singleNews))
-  //   // console.log(news.slice(0,5))
-  //   console.log(news)
+  //   return news.slice(0,5).map(singleNews => slicedDailyNews.push(singleNews))
+  
   // })
+
+
+  console.log(tempNews, 'temp news')
 
   const memoizedCallback = useCallback(
     () => {
@@ -63,12 +63,42 @@ function NewsPage(props) {
         });
       });
     }  
+    const {pathname} = history.location
 
-    getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
+    if (pathname === '/' && !dailyNews.length) {
+      console.log('daily')
+      getTempNews()
+    } else if (pathname === '/saved-news') {
+      console.log('saved')
+    } else {
+      console.log('cat')
+      getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
+    }
+
+    // if(categoryForApi !== 'daily'|| !checkForSavedNews ) {
+    //   console.log('bye')
+    //   getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
+    // } else if (pathname === '/') {
+    //   console.log('hello')
+    //   getTempNews()
+    // }
     memoizedCallback()
 
-  } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback]);
+  } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback, checkForSavedNews, checkForNews]);
 
+  function getTempNews() {
+    console.log('called')
+    Promise.all(filters.map(oneFilter => {
+      return getNews(oneFilter.filter, countryForFilter, dateForFilter)
+        .then(news => {
+          return news.articles.slice(0,5)
+        })
+    }))
+    .then(news => {
+      setTempNews(news.flat())
+      setDailyNews(news.flat())
+    });
+  }
 
   // get Categories LOGIC from api
   //set the new country after select itx
@@ -80,8 +110,8 @@ function NewsPage(props) {
 
   //function to set the categories by country
   function getAndSetNewsCategoriesByCountry(country, category) {
-    // getNewsCategory(country, category)
-    //   .then(categoryNews => setActiveCategory(categoryNews.articles))
+    getNewsCategory(country, category)
+      .then(categoryNews => setActiveCategory(categoryNews.articles))
   }
 
   //save new to personals news
@@ -126,6 +156,8 @@ function NewsPage(props) {
       setNotificationDeleted(false);
     }, 1500);
   }
+
+  const test = dailyNews.length ? dailyNews : tempNews
 
   return(
     <>
@@ -196,6 +228,7 @@ function NewsPage(props) {
           })}
         </SwipeableList>
         : 
+        activeCategory.length ?
         <SwipeableList>
           {activeCategory.map((singleNews, index) => {
             return <InView 
@@ -249,7 +282,61 @@ function NewsPage(props) {
                       </SwipeableListItem>
                     </InView>
           })}
-        </SwipeableList>
+        </SwipeableList> : 
+        <SwipeableList>
+        {test.map((singleNews, index) => {
+          return <InView 
+                    className="news-card"
+                    onChange={(inView, entry) => {
+                      if(inView) {
+                        addNewsAnimation(entry.target)
+                        } else {
+                        removeNewsAnimation(entry.target)
+                      }
+                    }}
+                    key={index}
+                  >
+                    <SwipeableListItem
+                      swipeRight={{
+                        action: () => {
+                          save(singleNews.author, singleNews.description, singleNews.publishedAt, singleNews.source.name, singleNews.title, singleNews.url, singleNews.urlToImage);
+                          showSaved();
+                        }
+                      }}
+                    >
+                      <div className="news-image pos-rel br-10">
+                        <img className="img-cover" src={singleNews.urlToImage} alt=""/>
+                        <div className="no-avaiable-img">
+                          <img src="/images/logo-black.svg" alt="no available img"/>
+                        </div>
+                      </div>
+                      <div className="news-wrap-text br-10">
+                        <div className="news-wrap-text__title br-10">
+                          <h2>{singleNews.title}</h2>
+                        </div>
+                        <div className="news-wrap-text__content">
+                          <p>{singleNews.description}</p>
+                        </div>
+                      </div>
+                      <div className="news-bottom-wrap">
+                        <div className="news-bottom-wrap__info">
+                          <p>
+                            <span className="title-font">{singleNews.source.name},</span><br />
+                            <span className="title-font">{singleNews.author},</span><br />
+                            <span className="color-blue news-data">{moment(singleNews.publishedAt).format('Do, MMMM')}</span>
+                          </p>
+                        </div>
+                        <div className="news-bottom-wrap__button">
+                          <a className="button-blue pos-rel" href={singleNews.url} target="_blank" rel="noreferrer">
+                            Link
+                            <img src="/images/link.svg" alt="link"/>
+                          </a>
+                        </div>
+                      </div>
+                    </SwipeableListItem>
+                  </InView>
+              })}
+            </SwipeableList> 
         }
 
         <div className="action-notification">
