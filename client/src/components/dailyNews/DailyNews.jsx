@@ -45,7 +45,6 @@ function DailyNews(props) {
   const [dateForFilter, setDateForFilter] = useState(moment().format("YYYY-MM-DD"))
   const [countryForFilter, setCountryForFilter] = useState('en')
 
-
   useEffect(()=> {
     const countries = require("i18n-iso-countries");
 
@@ -93,7 +92,7 @@ function DailyNews(props) {
   }
 
   function checkForNews() {
-    console.log('called')
+
     Promise.all(filters.map(oneFilter => {
       return getNews(oneFilter.filter, countryForFilter, dateForFilter)
         .then(news => {

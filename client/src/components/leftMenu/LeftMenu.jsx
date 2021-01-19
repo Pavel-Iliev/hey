@@ -49,7 +49,9 @@ function LeftMenu(props) {
 
   return(
     <>
-      <div className={`left-menu ${isRightMenuOpen ? 'hide-menu' : ''}`}>
+      <div 
+      // onClick={checkForNews}
+      className={`left-menu ${isRightMenuOpen ? 'hide-menu' : ''}`}>
         <div className="left-menu__title title-menu">
           <span onClick={menuOpen ? closeLeftMenu : openLeftMenu}  className="left-menu__btn menu-btn">
             <img src="/images/user-menu.svg" alt="category menu"/>
@@ -115,8 +117,11 @@ function LeftMenu(props) {
               </span>
               </button>
               <button 
-                onClick={checkForNews}
-                className="go-for-news button-blue">
+                onClick={ () => {
+                  checkForNews()
+                  closeLeftMenu()
+                }}
+                className={`go-for-news button-blue ${isRightMenuOpen ? 'hide-menu' : ''}`}>
                 Chek news
               </button>
           </div>

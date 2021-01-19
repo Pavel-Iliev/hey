@@ -27,8 +27,6 @@ function NewsPage(props) {
   // })
 
 
-  console.log(tempNews, 'temp news')
-
   const memoizedCallback = useCallback(
     () => {
       if (categoryForApi) {
@@ -66,38 +64,27 @@ function NewsPage(props) {
     const {pathname} = history.location
 
     if (pathname === '/' && !dailyNews.length) {
-      console.log('daily')
       getTempNews()
     } else if (pathname === '/saved-news') {
-      console.log('saved')
     } else {
-      console.log('cat')
       getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
     }
 
-    // if(categoryForApi !== 'daily'|| !checkForSavedNews ) {
-    //   console.log('bye')
-    //   getAndSetNewsCategoriesByCountry(selectedCountry, categoryForApi);
-    // } else if (pathname === '/') {
-    //   console.log('hello')
-    //   getTempNews()
-    // }
     memoizedCallback()
 
   } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback, checkForSavedNews, checkForNews]);
 
   function getTempNews() {
-    console.log('called')
-    Promise.all(filters.map(oneFilter => {
-      return getNews(oneFilter.filter, countryForFilter, dateForFilter)
-        .then(news => {
-          return news.articles.slice(0,5)
-        })
-    }))
-    .then(news => {
-      setTempNews(news.flat())
-      setDailyNews(news.flat())
-    });
+    // Promise.all(filters.map(oneFilter => {
+    //   return getNews(oneFilter.filter, countryForFilter, dateForFilter)
+    //     .then(news => {
+    //       return news.articles.slice(0,5)
+    //     })
+    // }))
+    // .then(news => {
+    //   setTempNews(news.flat())
+    //   setDailyNews(news.flat())
+    // });
   }
 
   // get Categories LOGIC from api
@@ -110,8 +97,8 @@ function NewsPage(props) {
 
   //function to set the categories by country
   function getAndSetNewsCategoriesByCountry(country, category) {
-    getNewsCategory(country, category)
-      .then(categoryNews => setActiveCategory(categoryNews.articles))
+    // getNewsCategory(country, category)
+    //   .then(categoryNews => setActiveCategory(categoryNews.articles))
   }
 
   //save new to personals news
