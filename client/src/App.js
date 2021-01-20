@@ -15,9 +15,9 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 3700);
-    // getRandomImage()
-    //   .then(photo => setBgImage(photo.urls.regular));
+    setTimeout(() => setLoading(false), 3700);
+    getRandomImage()
+      .then(photo => setBgImage(photo.urls.regular));
 
 
   }, []);
@@ -26,28 +26,13 @@ function App() {
     <div className="App">
 
       {
-        // loading === true ? <LoadingPage /> : 
-        // isUserAuthenticated ? 
-        //   <DailyNews
-        //     user={user}
-        //     setUser={setUser}
-        //     setIsUserAuthenticated={setIsUserAuthenticated}
-        //   /> : 
-        //   <AuthenticationPage 
-        //   bgImage={bgImage}
-        //   isUserAuthenticated={isUserAuthenticated}
-        //   setIsUserAuthenticated={setIsUserAuthenticated}
-        //   user={user}
-        //   setUser={setUser}/>
-
-        // loading === true ? <LoadingPage /> : 
+        loading === true ? <LoadingPage /> : 
         isUserAuthenticated ?
         <Router>
           <DailyNews
             user={user}
             setUser={setUser}
             setIsUserAuthenticated={setIsUserAuthenticated}
-            
           />
         </Router> :
           <AuthenticationPage 

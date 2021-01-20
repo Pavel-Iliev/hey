@@ -21,10 +21,7 @@ function NewsPage(props) {
   const [tempNews, setTempNews] = useState([])
 
   const history = useHistory()
-  // dailyLocalstorage.map((news) => {
-  //   return news.slice(0,5).map(singleNews => slicedDailyNews.push(singleNews))
-  
-  // })
+
 
 
   const memoizedCallback = useCallback(
@@ -41,6 +38,9 @@ function NewsPage(props) {
         document.querySelector('.swipe-icons').classList.add('swipe-icons-saved')
       } else {
         document.querySelector('.swipe-icons').classList.remove('swipe-icons-saved')
+      }
+      if(categoryForApi === 'daily') {
+        document.querySelector('.country-select').classList.remove('country-select__show')
       }
     },
     [categoryForApi, checkForSavedNews],
@@ -63,7 +63,8 @@ function NewsPage(props) {
     }  
     const {pathname} = history.location
 
-    if (pathname === '/' && !dailyNews.length) {
+    if (pathname === '/' && !dailyNews.length && !tempNews.length) {
+      console.log(dailyNews, 'daily')
       getTempNews()
     } else if (pathname === '/saved-news') {
     } else {
@@ -73,18 +74,19 @@ function NewsPage(props) {
     memoizedCallback()
 
   } , [categoryForApi, selectedCountry, automaticCountry, memoizedCallback, checkForSavedNews, checkForNews]);
-
+  
   function getTempNews() {
-    // Promise.all(filters.map(oneFilter => {
-    //   return getNews(oneFilter.filter, countryForFilter, dateForFilter)
-    //     .then(news => {
-    //       return news.articles.slice(0,5)
-    //     })
-    // }))
-    // .then(news => {
-    //   setTempNews(news.flat())
-    //   setDailyNews(news.flat())
-    // });
+    console.log('tempNews called');
+    Promise.all(filters.map(oneFilter => {
+      return getNews(oneFilter.filter, countryForFilter, dateForFilter)
+        .then(news => {
+          return news.articles.slice(0,5)
+        })
+    }))
+    .then(news => {
+      setTempNews(news.flat())
+      // setDailyNews(news.flat())
+    });
   }
 
   // get Categories LOGIC from api
@@ -97,8 +99,8 @@ function NewsPage(props) {
 
   //function to set the categories by country
   function getAndSetNewsCategoriesByCountry(country, category) {
-    // getNewsCategory(country, category)
-    //   .then(categoryNews => setActiveCategory(categoryNews.articles))
+    getNewsCategory(country, category)
+      .then(categoryNews => setActiveCategory(categoryNews.articles))
   }
 
   //save new to personals news

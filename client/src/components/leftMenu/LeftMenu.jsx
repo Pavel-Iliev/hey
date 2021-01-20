@@ -47,6 +47,11 @@ function LeftMenu(props) {
     setUser(null);
   }
 
+
+  function goToLanding() {
+    history.push("/");
+  }
+
   return(
     <>
       <div 
@@ -119,6 +124,7 @@ function LeftMenu(props) {
               <button 
                 onClick={ () => {
                   checkForNews()
+                  goToLanding()
                   closeLeftMenu()
                 }}
                 className={`go-for-news button-blue ${isRightMenuOpen ? 'hide-menu' : ''}`}>

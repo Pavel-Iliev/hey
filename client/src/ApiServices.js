@@ -77,8 +77,9 @@ export async function getNews(title, country, dateFrom) {
     'language=' + country + '&' +
     'from=' + dateFrom + '&' +
     'sortBy=popularity&' +
-    'apiKey=ffa5a3be72614dcc8dfbc79683fcb6df')
-    .then(news => news.data);
+    'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
+    .then(news => news.data)
+    .catch(error => console.error(console.error()));
 }
 
 
@@ -86,7 +87,7 @@ export async function getNewsCategory(country, category) {
   return axios.get('http://newsapi.org/v2/top-headlines?' +
     'country=' + country + '&' +
     'category=' + category + '&' +
-    'apiKey=ffa5a3be72614dcc8dfbc79683fcb6df')
+    'apiKey=d21ca6233a114ed7b4c8df72e41486c5')
     .then(news => news.data);
 }
 
