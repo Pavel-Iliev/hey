@@ -10,8 +10,6 @@ Every news can be saved in your personal page, and later delete it.
 
 ![](images/pages.jpg)
 
-![](images/hey-news.gif)
-
 ## Getting started
 To get start you need, node and npm. 
 
