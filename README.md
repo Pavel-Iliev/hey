@@ -19,6 +19,7 @@ To get start you need, node and npm.
    
 2. **Start server**
   - **cd** server
+  - **npm** i
   - **npx nodemon**
   
 3. **Install dependencies and start the app**
