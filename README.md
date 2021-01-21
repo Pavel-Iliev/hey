@@ -14,18 +14,18 @@ Every news can be saved in your personal page, and later delete it.
 To get start you need, node and npm. 
 
 1. **Clone the repo**
-   **git clone** https://github.com/Pavel-Iliev/hey.git
-   **cd** hey
+  - **git clone** https://github.com/Pavel-Iliev/hey.git
+  - **cd** hey
    
 2. **Start server**
-  **cd** server
-  **npx nodemon**
+  - **cd** server
+  - **npx nodemon**
   
 3. **Install dependencies and start the app**
-  **cd client**
-  **npm** i
-  **npm start**
-  go in your browser to http://localhost:3000/  
+  - **cd client**
+  - **npm** i
+  - **npm start**
+  - go in your browser to http://localhost:3000/  
  
 
 5. **Start to use the app**
@@ -40,13 +40,13 @@ To get start you need, node and npm.
   - **MongoDb**, database
   
   ## API Used
-   [https://newsapi.org/] 
-   [https://weather.com] 
-   [https://unsplash.com/] 
+   - NewsPi [https://newsapi.org/] 
+   - WeatherApi [https://weather.com] 
+   - RandomImageApi [https://unsplash.com/] 
   
   ## Author
   **Pavel Iliev**
-    [Github] https://github.com/Pavel-Iliev
-    [LinkedIn] https://www.linkedin.com/in/pavel-iliev-2593b0102/
+    - Github [https://github.com/Pavel-Iliev] 
+    - Linkedin [https://www.linkedin.com/in/pavel-iliev-2593b0102/] 
   
   
