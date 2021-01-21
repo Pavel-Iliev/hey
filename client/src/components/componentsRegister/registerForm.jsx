@@ -34,13 +34,15 @@ function Register(props) {
     if (name && email && password) {
       register(name, email, password)
         .then(token => {
-          getUser(token.data)
           localStorage.setItem('token', token.data)
+
+          getUser(token.data)
           .then(user => {
             setUser(user.data)
             localStorage.setItem('name', user.data.name);
             localStorage.setItem('email', user.data.email);
-            localStorage.setItem('_id', user.data._id)
+            localStorage.setItem('_id', user.data._id);
+            history.push("/");
           })
         })  
         .catch(error => {
