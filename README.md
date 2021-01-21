@@ -45,8 +45,8 @@ To get start you need, node and npm.
    - RandomImageApi [https://unsplash.com/] 
   
   ## Author
-  **Pavel Iliev**
-    - Github [https://github.com/Pavel-Iliev] 
-    - Linkedin [https://www.linkedin.com/in/pavel-iliev-2593b0102/] 
+   - **Pavel Iliev**
+   - Github [https://github.com/Pavel-Iliev] 
+   - Linkedin [https://www.linkedin.com/in/pavel-iliev-2593b0102/] 
   
   
