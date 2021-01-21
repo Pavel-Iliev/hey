@@ -6,33 +6,44 @@ The given news are all in base of your location.
 In the categories you can switch between different country and consequently got the news from that country.
 Every news can be saved in your personal page, and later delete it.
 
+![](images/login.jpg)
+
+![](images/page.jpg)
+
 ## Getting started
 To get start you need, node and npm. 
 
-1. Clone the repo
-2. Start server
+1. **Clone the repo
+2. **Start server
   - npx nodemon from server folder
-3. Install dependencies
+  
+3. **Install dependencies
   - npm install in client folder 
-4. Start the app
+  
+4. **Start the app
   - npm start from client folder
- 
- go in your browser to http://localhost:3000/
+  - go in your browser to http://localhost:3000/
+
+5. **Start to use the app
+  - you can register you
+  - or you can use a default my account
+    - **email :** pavel@pavel.it  
+    - **psw :** 12345678
  
  ## Built with
-  - React, front end library for building user interfaces
-  - Koa, web framework for the server
-  - Mongoose, object modeling for mongodb
-  - MongoDb, database
+  - **React**, front end library for building user interfaces
+  - **Koa**, web framework for the server
+  - **Mongoose**, object modeling for mongodb
+  - **MongoDb**, database
   
   ## API Used
-  - [NewsApi]https://newsapi.org/
-  - [Wheather]https://weather.com
-  - [RandomImage]https://unsplash.com/
+  - [NewsApi] https://newsapi.org/
+  - [Wheather] https://weather.com
+  - [RandomImage] https://unsplash.com/
   
   ## Author
   Pavel Iliev
-  [Github]https://github.com/Pavel-Iliev
-  [LinkedIn]https://www.linkedin.com/in/pavel-iliev-2593b0102/
+  [Github] https://github.com/Pavel-Iliev
+  [LinkedIn] https://www.linkedin.com/in/pavel-iliev-2593b0102/
   
   
