@@ -42,8 +42,8 @@ To get start you need, node and npm.
   - [RandomImage] https://unsplash.com/
   
   ## Author
-   **Pavel Iliev**
-    -[Github] https://github.com/Pavel-Iliev
-    -[LinkedIn] https://www.linkedin.com/in/pavel-iliev-2593b0102/
+  **Pavel Iliev**
+  -[Github] https://github.com/Pavel-Iliev
+  -[LinkedIn] https://www.linkedin.com/in/pavel-iliev-2593b0102/
   
   
