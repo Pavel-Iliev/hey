@@ -8,7 +8,7 @@ Every news can be saved in your personal page, and later delete it.
 
 ![](images/login.jpg)
 
-![](images/page.jpg)
+![](images/pages.jpg)
 
 ## Getting started
 To get start you need, node and npm. 
