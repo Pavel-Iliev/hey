@@ -1,7 +1,7 @@
 # Hey News!
 ![](images/logo.png)
 
-Hey news is a small mobile application to chek your news by filters from today or select news by category.
+Hey news is a small mobile application to check your news by filters from today or select news by category.
 The given news are all in base of your location.
 In the categories you can switch between different country and consequently got the news from that country.
 Every news can be saved in your personal page, and later delete it.
