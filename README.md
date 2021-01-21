@@ -13,18 +13,18 @@ Every news can be saved in your personal page, and later delete it.
 ## Getting started
 To get start you need, node and npm. 
 
-1. **Clone the repo
-2. **Start server
+1. **Clone the repo**
+2. **Start server**
   - npx nodemon from server folder
   
-3. **Install dependencies
+3. **Install dependencies**
   - npm install in client folder 
   
-4. **Start the app
+4. **Start the app**
   - npm start from client folder
   - go in your browser to http://localhost:3000/
 
-5. **Start to use the app
+5. **Start to use the app**
   - you can register you
   - or you can use a default my account
     - **email :** pavel@pavel.it  
