@@ -32,7 +32,7 @@ To get start you need, node and npm.
  
 
 5. **Start to use the app**
-  - you can register or you can use a default my account
+  - you can register or you can use my default account
     - **email :** pavel@pavel.it  
     - **psw :** 12345678
  
